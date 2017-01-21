@@ -14,9 +14,9 @@ class Mafia.LoginView extends Mafia.View
       <div class="row">
         <div class="columns">
           <div class="description">
-            Password
+            Room Number
           </div>
-          <input name='user[password]' type="password" class="password field" placeholder="Password">
+          <input name='room-number' type="number" class="number field" placeholder="Number">
         </div>
       </div>
       <input type='submit' class='login primary block btn' value='Login'/>

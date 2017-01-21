@@ -1,5 +1,5 @@
 class Mafia.Application.HeaderView extends Mafia.View
-  id: 'application-header-view'
+  id: 'application-header'
   tagName: 'header'
   className: 'header-view'
 

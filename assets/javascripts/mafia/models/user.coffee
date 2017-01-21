@@ -3,5 +3,6 @@ class Mafia.Models.User extends Backbone.Model
     username: null
     name: null
     image_url: null
+    role: null
 
 
