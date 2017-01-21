@@ -7,16 +7,19 @@
 
 class Mafia.AppStarter
   constructor: ->
+    @socket = io.connect 'http://localhost:3000'
     @view = new Mafia.ApplicationView app: this
-    @render_login()
 
-  render_login: ->
-    new Mafia.LoginView app: this, parent: this
+    gameStarted = false
 
-
-
-
-
-
+    @socket.on 'connected', =>
+      localStorage.setItem "userId", @socket.id
+      if localStorage.getItem("roomId") 
+        if gameStarted
+          new Mafia.GameView app: this
+        else 
+          new Mafia.WaitingView app: this
+      else
+        new Mafia.LoginView app: this, parent: this
 
 

@@ -1,8 +1,8 @@
 class Mafia.Models.User extends Backbone.Model
   defaults:
-    username: null
-    room_number: null
-    image_url: null
+    userName: null
+    roomId: null
+    imageUrl: null
     role: null
 
 

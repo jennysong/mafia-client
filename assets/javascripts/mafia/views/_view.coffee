@@ -1,7 +1,7 @@
 class Mafia.View extends Backbone.View
 
   constructor: (options = {}) ->
-    {@app, @parent, @model, @collection} = options
+    {@app, @parent} = options
     super options
 
   _position: ->

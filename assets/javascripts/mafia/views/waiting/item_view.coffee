@@ -2,7 +2,7 @@ class Mafia.Waiting.ItemView extends Mafia.View
   className: "waiting-list-view"
   tagName: "li"
   template: _.template '''
-    <div class='user-info'><%- username %></div>
+    <div class='user-info'><%- userName %></div>
   '''
 
   initialize: (options) ->
