@@ -10,7 +10,9 @@ class Mafia.AppStarter
     @socket = io.connect 'http://localhost:3000'
     @view = new Mafia.ApplicationView app: this
 
+    # temporary
     gameStarted = false
+    localStorage.clear()
 
     @socket.on 'connected', =>
       localStorage.setItem "userId", @socket.id

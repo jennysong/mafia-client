@@ -1,34 +1,60 @@
 class Mafia.WaitingView extends Mafia.View
-  className: 'waiting-view'
+  id: 'mafia-waiting-view'
   template: _.template '''
-    <div class='title'> Room Number: 1234 </div>
-    <div class='waiting-user-list-wrap'></div>
-    <div class='chating-view-wrap'</div>
+    <div class="avatar-item-list"></div>
+    <div class="waiting-user-list"></div>
+    <button class='ready-button'>
+      <span class="visible-ready">Cancel</span>
+      <span class="visible-waiting">Ready</span>
+    </button>
   '''
 
-  initialize: ->
-    @_get_users =>
-      @_render()
-      @_render_waiting_user_list()
-      @_position()
+  current_status: 'waiting'
 
-    @_render_game_view()
+  initialize: (options = {}) ->
+    @users = new Mafia.Collections.Users options.current_users
 
+    @_render()
+    @_render_waiting_user_list()
+    @_mark_as_waiting()
+    @_position()
+
+  events:
+    'click .ready-button': 'toggle_ready'
+
+  toggle_ready: ->
+    if @current_status is 'ready'
+      @_mark_as_waiting()
+    else
+      @_mark_as_ready()
+
+  _mark_as_waiting: ->
+    @$el.addClass('status-waiting').removeClass 'status-ready'
+    @current_status = 'waiting'
+    @app.socket.emit('user is not ready')
+
+
+  _mark_as_ready: ->
+    @$el.addClass('status-ready').removeClass 'status-waiting'
+    @current_status = 'ready'
+    @app.socket.emit('user is ready')
 
   _render: ->
     @$el.html @template()
-    @$waiting_user_list_wrap = @$(".waiting-user-list-wrap")
+    @$waiting_user_list = @$(".waiting-user-list")
+    @$avatar_item_list = @$(".avatar-item-list")
 
-
-  _get_users: (callback) ->
-    # TODO: should get user collection
-    @users = new Mafia.Collections.Users
-    @users.unshift @model
-    callback()
 
   _render_waiting_user_list: ->
     @users.each (user) =>
-      new Mafia.Waiting.ItemView app: @app, parent: this, model: user, $wrap: @$waiting_user_list_wrap
+      @_render_user_item user
 
+
+  _render_user_item: (user) ->
+    @new Mafia.Waiting.UserItemView,
+      app: @app, parent: this, model: user
+      $wrap: @$waiting_user_list
+
+  #can be deleted below
   _render_game_view: ->
     new Mafia.GameView app: @app, parent: this, model: @app.current_user, collection: @users

@@ -34,12 +34,11 @@ class Mafia.LoginView extends Mafia.View
   login: (e) ->
     e.preventDefault()
     oUser = @$form.serializeObject()
-
-    @app.socket.emit('user join', oUser);
-    localStorage.setItem("roomId", oUser.roomId);
-
     @user.set oUser
+    @app.socket.emit('user join', @user.toJSON());
+    localStorage.setItem("roomId", oUser.roomId);
     @app.current_user = @user
+
     @_render_waiting_view()
 
   _render_waiting_view: ->
