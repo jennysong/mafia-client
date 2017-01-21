@@ -8,7 +8,7 @@ class Mafia.LoginView extends Mafia.View
           <div class="description">
             Username
           </div>
-          <input name='user[email]' type="email" class="field" placeholder="Email Address">
+          <input name='username' type="text" class="field" placeholder="Username">
         </div>
       </div>
       <div class="row">
@@ -16,7 +16,7 @@ class Mafia.LoginView extends Mafia.View
           <div class="description">
             Room Number
           </div>
-          <input name='room-number' type="number" class="number field" placeholder="Number">
+          <input name='room_number' type="number" class="number field" placeholder="Number">
         </div>
       </div>
       <input type='submit' class='login primary block btn' value='Login'/>
@@ -31,11 +31,16 @@ class Mafia.LoginView extends Mafia.View
     @_position()
 
   login: ->
-    console.log @$form.serializeObject()
+    @user = new Mafia.Models.User @$form.serializeObject()
+
+    @_render_waiting_view()
+
+    false
+
+  _render_waiting_view: ->
+    new Mafia.WaitingView app: @app, parent: this, model: @user
 
   _render: ->
     @$el.html @template()
     @$form = @$("form")
 
-  _position: ->
-    @app.view.append_view this
