@@ -1,0 +1,10 @@
+@import "mafia";
+
+#mafia-game-vote-current-user-view {
+  position: relative;
+  width: 100%;
+  .item-label{
+    display: inline-block;
+    position: relative;
+  }
+}
