@@ -6,6 +6,8 @@ class Mafia.Game.VoteView extends Mafia.View
   '''
 
   initialize: ->
+    @_addFakeUsers()
+    debugger
     @_render()
     @_position()
 
@@ -14,3 +16,10 @@ class Mafia.Game.VoteView extends Mafia.View
 
   _position: ->
     @parent.$section_wrap.append @$el
+
+
+
+
+  _addFakeUsers: ->
+    @collection.add @model
+    @collection.addFakeUsers()

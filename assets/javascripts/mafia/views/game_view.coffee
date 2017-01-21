@@ -40,7 +40,7 @@ class Mafia.GameView extends Mafia.View
     @current_section_view.remove() if @current_section_view
     @current_section = section
     view_name = @sections[@current_section]
-    @current_section_view = new Mafia.Game[view_name] app: @app, parent: this, model: @model
+    @current_section_view = new Mafia.Game[view_name] app: @app, parent: this, model: @model, collection: @users
     @current_section_tab = @$(".section-tab.#{section}").addClass 'selected'
 
 
