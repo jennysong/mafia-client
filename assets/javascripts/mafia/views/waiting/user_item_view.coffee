@@ -1,17 +1,23 @@
-class Mafia.Waiting.ItemView extends Mafia.View
-  className: "waiting-list-view"
+class Mafia.Waiting.UserItemView extends Mafia.View
+  className: "user-item-view"
   tagName: "li"
   template: _.template '''
-    <div class='user-info'><%- userName %></div>
+    <%- avatarId %>
+    <%- avatarBg %>
+    <%- userName %>
   '''
 
   initialize: (options) ->
     {@$wrap} = options
+
     @_render()
     @_position()
 
   _render: ->
-    @$el.html @template @model.attributes
+    @$el.html @template @model.toJSON()
 
   _position: ->
     @$wrap.append @$el
+
+
+
