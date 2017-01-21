@@ -10,8 +10,10 @@ class Mafia.WaitingView extends Mafia.View
     @_get_users =>
       @_render()
       @_render_waiting_user_list()
-
       @_position()
+
+    @_render_game_view()
+
 
   _render: ->
     @$el.html @template()
@@ -28,4 +30,5 @@ class Mafia.WaitingView extends Mafia.View
     @users.each (user) =>
       new Mafia.Waiting.ItemView app: @app, parent: this, model: user, $wrap: @$waiting_user_list_wrap
 
-
+  _render_game_view: ->
+    new Mafia.GameView app: @app, parent: this, model: @app.current_user, collection: @users

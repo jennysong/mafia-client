@@ -14,10 +14,10 @@ class Mafia.AppStarter
 
     @socket.on 'connected', =>
       localStorage.setItem "userId", @socket.id
-      if localStorage.getItem("roomId") 
+      if localStorage.getItem("roomId")
         if gameStarted
           new Mafia.GameView app: this
-        else 
+        else
           new Mafia.WaitingView app: this
       else
         new Mafia.LoginView app: this, parent: this

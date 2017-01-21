@@ -39,7 +39,7 @@ class Mafia.LoginView extends Mafia.View
     localStorage.setItem("roomId", oUser.roomId);
 
     @user.set oUser
-
+    @app.current_user = @user
     @_render_waiting_view()
 
   _render_waiting_view: ->
