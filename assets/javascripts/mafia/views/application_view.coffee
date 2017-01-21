@@ -1,15 +1,10 @@
 class Mafia.ApplicationView extends Mafia.View
   id: 'mafia-application-view'
-  className: 'application-view'
   template: _.template '''
-    <div class="row">
-      <div class="medium-8 push-2 columns">
-        <div id="application-body"></div>
-        <div id="application-footer">
-          <div class="made-by">
-            Made by <strong>Shawn</strong>, <strong>Jenny</strong>, and <strong>Youn</strong>
-          </div>
-        </div>
+    <div id="application-body"></div>
+    <div id="application-footer">
+      <div class="made-by">
+        Made by <strong>Shawn</strong>, <strong>Jenny</strong>, and <strong>Youn</strong>
       </div>
     </div>
   '''
