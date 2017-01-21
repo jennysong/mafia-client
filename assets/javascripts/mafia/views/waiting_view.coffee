@@ -19,6 +19,8 @@ class Mafia.WaitingView extends Mafia.View
     @_mark_as_waiting()
     @_position()
 
+    @_render_game_view()
+
   events:
     'click .ready-button': 'toggle_ready'
 

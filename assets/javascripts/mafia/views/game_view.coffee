@@ -5,9 +5,9 @@ class Mafia.GameView extends Mafia.View
     <div class="game-view-header">
       <div class="timer"></div>
       <div class="section-tab">
-        <a class="change-section primary block btn" data-section="vote">Vote</<a>
-        <a class="change-section primary block btn" data-section="chat">Chat</<a>
-        <a class="change-section primary block btn" data-section="role">Role</<a>
+        <a class="change-section primary block btn" data-section="vote">Vote</a>
+        <a class="change-section primary block btn" data-section="chat">Chat</a>
+        <a class="change-section primary block btn" data-section="role">Role</a>
       </div>
     </div>
     <div class="game-view-body"></div>
