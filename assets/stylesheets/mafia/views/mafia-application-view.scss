@@ -1,0 +1,8 @@
+@import "mafia";
+
+
+#mafia-waiting-view {
+  &.status-waiting .visible-ready { display: none; }
+  &.status-ready .visible-waiting { display: none; }
+
+}

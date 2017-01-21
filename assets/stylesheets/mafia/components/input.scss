@@ -15,7 +15,7 @@ input[type='text'], input[type='password'], input[type='number'] {
   background: transparent;
 }
 
-input[type='submit'] {
+input[type='submit'], button {
   background: white;
   border: 1px solid white; color: black;
   @include border-radius(4px); font-weight: bold;
