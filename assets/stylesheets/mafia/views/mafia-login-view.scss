@@ -1,0 +1,26 @@
+@import "mafia";
+
+#mafia-login-view {
+  width: 100%;
+  text-align: center;
+  .logo {
+    margin: 0 0 40px;
+    text-transform: uppercase;
+
+    .main-text {
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      line-height: 50px;
+    }
+    .sub-text {
+      font-size: 12px;
+      color: $important-color;
+      letter-spacing: 7px;
+      line-height: 14px;
+    }
+  }
+  .avatar-wrap { margin: 40px 0; }
+  .field-row { margin: 10px 15%; }
+  input { width: 100%; }
+}

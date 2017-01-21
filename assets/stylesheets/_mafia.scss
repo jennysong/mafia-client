@@ -1,0 +1,9 @@
+@import 'compass/css3';
+@import 'compass/utilities/general/min';
+
+$background-color: #071E35;
+$important-color: #DD0000;
+
+@mixin box-valign-middle() {
+  @include display-flex; @include align-items(center);
+}

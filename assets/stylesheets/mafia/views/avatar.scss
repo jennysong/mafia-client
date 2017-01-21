@@ -1,0 +1,39 @@
+@import "mafia";
+
+.mafia-avatar {
+  @include inline-block;
+  width: 300px; height: 300px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 130%;
+  background-color: #999;
+  &.round { @include border-radius(50%); }
+  &.type-1 { background-image: url('avatars/1.png'); }
+  &.type-2 { background-image: url('avatars/2.png'); }
+  &.type-3 { background-image: url('avatars/3.png'); }
+  &.type-4 { background-image: url('avatars/4.png'); }
+  &.type-5 { background-image: url('avatars/5.png'); }
+  &.type-6 { background-image: url('avatars/6.png'); }
+  &.type-7 { background-image: url('avatars/7.png'); }
+  &.type-8 { background-image: url('avatars/8.png'); }
+  &.type-9 { background-image: url('avatars/9.png'); }
+  &.type-10 { background-image: url('avatars/10.png'); }
+  &.type-11 { background-image: url('avatars/11.png'); }
+  &.type-12 { background-image: url('avatars/12.png'); }
+  &.bg-olive { background-color: #9EAA2B; }
+  &.bg-orange { background-color: #A86F2C; }
+  &.bg-crimson { background-color: #A5462D; }
+  &.bg-pink { background-color: #A32E7F; }
+  &.bg-purple { background-color: #642DA5; }
+  &.bg-blue { background-color: #382CA8; }
+  &.bg-sky { background-color: #2C5FA8; }
+  &.bg-babyblue { background-color: #2C9AA8; }
+  &.bg-emerald { background-color: #2EA38D; }
+  &.bg-grass { background-color: #2EA347; }
+  &.bg-lime { background-color: #85A52D; }
+  &.bg-red { background-color: #A52D2D; }
+
+  &.size-large { width: 200px; height: 200px; }
+  &.size-medium { width: 100px; height: 100px; }
+  &.size-small { width: 50px; height: 50px; }
+}

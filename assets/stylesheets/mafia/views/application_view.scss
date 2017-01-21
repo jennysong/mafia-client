@@ -1,1 +1,20 @@
-html { height: 100%; }
+@import "mafia";
+
+#mafia-application-view {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: $background-color;
+  color: white;
+
+  #application-body {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    @include box-valign-middle;
+  }
+  #application-footer {
+    position: absolute;
+    bottom: 0; left: 20px; right: 20px; line-height: 30px;
+    height: 41px; border-top: 1px solid rgba(white, 0.3); text-align: center;
+    font-size: 12px;
+  }
+}

@@ -3,23 +3,22 @@ class Mafia.LoginView extends Mafia.View
   className: 'login-view'
   template: _.template '''
     <form>
-      <div class="row">
-        <div class="columns">
-          <div class="description">
-            Username
-          </div>
-          <input name='userName' type="text" class="field" placeholder="Username">
-        </div>
+      <div class="logo">
+        <div class="main-text">The Mafia</div>
+        <div class="sub-text">Deep in the Night</div>
       </div>
-      <div class="row">
-        <div class="columns">
-          <div class="description">
-            Room Number
-          </div>
-          <input name='roomId' type="number" class="number field" placeholder="Number">
-        </div>
+      <div class="avatar-wrap">
+        <span class='mafia-avatar type-<%- avatarId %> round size-large bg-<%- avatarBg %>'></span>
       </div>
-      <input type='submit' class='login primary block btn' value='Login'/>
+      <div class="field-row">
+        <input name='userName' type="text" class="field" placeholder="Username">
+      </div>
+      <div class="field-row">
+        <input name='roomId' type="number" class="number field" placeholder="Number">
+      </div>
+      <div class="field-row">
+        <input type='submit' class='login primary block btn' value='Login'/>
+      </div>
     </form>
   '''
 
@@ -27,6 +26,8 @@ class Mafia.LoginView extends Mafia.View
     'submit': 'login'
 
   initialize: ->
+    @user = new Mafia.Models.User
+    @user.setRandomAvatar()
     @_render()
     @_position()
 
@@ -37,7 +38,7 @@ class Mafia.LoginView extends Mafia.View
     @app.socket.emit('user join', oUser);
     localStorage.setItem("roomId", oUser.roomId);
 
-    @user = new Mafia.Models.User oUser
+    @user.set oUser
 
     @_render_waiting_view()
 
@@ -45,7 +46,7 @@ class Mafia.LoginView extends Mafia.View
     new Mafia.WaitingView app: @app, parent: this, model: @user
 
   _render: ->
-    @$el.html @template()
+    @$el.html @template @user.toJSON()
     @$form = @$("form")
 
   _position: ->

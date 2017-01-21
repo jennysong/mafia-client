@@ -1,0 +1,23 @@
+@import "mafia";
+
+input[type='text'], input[type='password'], input[type='number'],
+input[type='submit'] {
+  font-size: 16px; color: white;
+  border: 1px solid white; padding: 0.4em 0.6em;
+  @include border-radius(4px); outline: none;
+  &::-webkit-input-placeholder { color: white; opacity: 0.4; }
+  &::-moz-placeholder { color: white; opacity: 0.4; }
+  &:-ms-input-placeholder { color: white; opacity: 0.4; }
+  &:-moz-placeholder { color: white; opacity: 0.4; }
+}
+
+input[type='text'], input[type='password'], input[type='number'] {
+  background: transparent;
+}
+
+input[type='submit'] {
+  background: white;
+  border: 1px solid white; color: black;
+  @include border-radius(4px); font-weight: bold;
+  text-transform: uppercase; letter-spacing: 1px;
+}

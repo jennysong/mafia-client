@@ -7,7 +7,7 @@ class Mafia.ApplicationView extends Mafia.View
         <div id="application-body"></div>
         <div id="application-footer">
           <div class="made-by">
-            Made by Shawn, Jenny, and Youn
+            Made by <strong>Shawn</strong>, <strong>Jenny</strong>, and <strong>Youn</strong>
           </div>
         </div>
       </div>
@@ -16,7 +16,7 @@ class Mafia.ApplicationView extends Mafia.View
 
   initialize: ->
     @_render()
-    @_render_header()
+    # @_render_header()
     @_position()
 
   append_view: (view) ->
