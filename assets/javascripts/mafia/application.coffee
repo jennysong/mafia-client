@@ -44,3 +44,6 @@ class Mafia.AppStarter
       @trigger 'show-vote-result', deadUser
       #      @trigger 'next-scene-started'
 
+    @on 'restart-game', =>
+      new Mafia.LoginView app: this, parent: this
+
