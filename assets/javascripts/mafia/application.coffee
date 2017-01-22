@@ -8,7 +8,12 @@
 class Mafia.AppStarter
   constructor: ->
     _(this).extend Backbone.Events
-    @socket = io.connect 'http://localhost:3000'
+    socket_host = if /^localhost/.test(location.host)
+                    'http://localhost:3000'
+                  else
+                    'http://mafia-socket.jennysong.ca'
+
+    @socket = io.connect socket_host
     @view = new Mafia.ApplicationView app: this
     @scene = 1
     # temporary
