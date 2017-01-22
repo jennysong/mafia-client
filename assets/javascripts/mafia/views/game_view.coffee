@@ -29,8 +29,9 @@ class Mafia.GameView extends Mafia.View
     role: 'RoleView'
 
   initialize: (options = {scene: 1}) ->
+    @users    = @collection
+    @messages = new Backbone.Collection
 
-    @users = @collection
     @_render()
     @_position()
     @_refresh_frame scene: @app.scene
@@ -85,7 +86,19 @@ class Mafia.GameView extends Mafia.View
       @users.updatesCollectionByIndex game_data.users
       @app.trigger 'vote-result-received', game_data
 
+    @app.socket.on "update message", (message_attrs) =>
+      console.log message_attrs
+      @messages.add message_attrs
+
+
   _initialize_application_trigers: ->
     @app.on 'next-scene-started', =>
       @_refresh_frame scene: @app.scene
       #show result dialog
+
+  remove: ->
+    @app.socket.off 'general vote update'
+    @app.socket.off 'special vote update'
+    @app.socket.off 'vote result'
+    @app.socket.off 'update message'
+    super
