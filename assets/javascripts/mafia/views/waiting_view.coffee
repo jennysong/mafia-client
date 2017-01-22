@@ -60,3 +60,6 @@ class Mafia.WaitingView extends Mafia.View
   #can be deleted below
   _render_game_view: ->
     new Mafia.GameView app: @app, parent: this, model: @app.current_user, collection: @users
+
+  _render_game_view: ->
+    new Mafia.ResultView app: @app, parent: this, report: @report

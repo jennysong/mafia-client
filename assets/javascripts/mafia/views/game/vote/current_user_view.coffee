@@ -3,16 +3,18 @@ class Mafia.Game.Vote.CurrentUserView extends Mafia.View
   class: 'current-user'
   tagName: 'li'
   template: _.template '''
-    <div class="user">
-      <div class="avatar-wrap">
-        <span class='mafia-avatar size-small type-<%- avatarId %> round size-large bg-<%- avatarBg %>'></span>
+    <div class="user-item">
+      <div class="user-info left">
+        <span class='mafia-avatar size-small type-<%- currentUser.avatarId %> round size-large bg-<%- currentUser.avatarBg %>'></span>
+        <div class="userName"><%- currentUser.userName %></div>
       </div>
-      <span class='entypo right'></span>
-      <div class="vote">
+      <div class="user-info vote right">
         <div class="place-holder">
           <span class='mafia-avatar size-small type-1 round size-large bg-red'></span>
         </div>
       </div>
+      <div class="arrow"><span class='entypo right inline'></span></div>
+
     </div>
   '''
 
@@ -25,7 +27,7 @@ class Mafia.Game.Vote.CurrentUserView extends Mafia.View
     'click .vote': 'vote'
 
   _render: ->
-    @$el.html @template @model.toJSON()
+    @$el.html @template {currentUser: @model.toJSON()}
 
   _position: ->
     @$wrap.append @$el
