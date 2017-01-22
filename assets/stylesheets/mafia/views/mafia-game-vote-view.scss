@@ -1,0 +1,27 @@
+#mafia-game-vote-view {
+  width: 100%;
+  .game-view-body {
+    overflow: auto;
+  }
+  .user-item {
+    position: relative;
+    height: 76px; line-height: 66px;
+    padding: 5px 110px;
+    text-align: center;
+    .user-info {
+      position: absolute;
+      width: 100px;
+      span { display: block; margin: 0 auto; font-stretch: ultra-expanded; }
+      &.left { left: 5px; }
+      &.right { right: 5px; }
+    }
+    .userName {
+      font-size: 14px;
+      line-height: 16px;
+    }
+
+    .arrow {
+      font-size: 50px;
+    }
+  }
+}
