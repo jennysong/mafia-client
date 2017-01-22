@@ -1,0 +1,53 @@
+@import "mafia";
+
+.mafia-dialog-view {
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  padding: 30px 0;
+  @include touch-overflow();
+
+  height: auto; bottom: 0;
+  text-align: center; white-space: nowrap;
+  &:before {
+    content: '\200B';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.15em;
+  }
+  > * { white-space: initial; }
+  .mafia-dialog-content { @include inline-block; text-align: left; min-height: 0; }
+
+
+  .mafia-dialog-modal {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background-color: rgba($background-color, 0.8);
+    z-index: 1;
+  }
+  .mafia-dialog-content {
+    position: relative;
+    z-index: 2;
+    background-color: rgba(black, 0.6);
+    width: 90%; margin: 0 auto;
+    @include border-radius(10px);
+    @include box-shadow(rgba(black, 0.5) 0 10px 20px);
+    .dialog-title {
+      font-size: 16px; padding: 0 13px;
+      line-height: 40px; height: 41px; font-weight: bold;
+      border-bottom: 1px solid #999;
+      @include background-image(linear-gradient(180deg, rgba(white, 1) 0, rgba(white, 0.75) 1));
+      @include border-radius(10px 10px 0 0);
+    }
+    .dialog-body {
+      background: rgba(#dde, 0.5);
+      min-height: 120px;
+      @include border-radius(0 0 10px 10px);
+      border: 1px solid rgba(white, 0.4);
+      border-top: 0;
+    }
+  }
+
+  &.dialog-show { }
+  &.dialog-hide { }
+}
