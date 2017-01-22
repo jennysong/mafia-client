@@ -6,9 +6,17 @@ class Mafia.Dialogs.VotePlayerDialog.UserItemView extends Mafia.View
   '''
 
   initialize: (options) ->
-    {@$wrap} = options
+    {@$wrap, @after_select} = options
     @_render()
     @_position()
+
+  events:
+    'click': 'vote'
+
+  vote: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    @after_select @model
 
   _render: ->
     @$el.html @template @model.toJSON()

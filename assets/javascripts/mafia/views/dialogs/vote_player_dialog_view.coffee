@@ -7,7 +7,7 @@ class Mafia.Dialogs.VotePlayerDialogView extends Mafia.Dialogs.DialogView
     </div>
   '''
   initialize: (options) ->
-    {@after_select, @users} = options
+    {@after_select, @users, @current_user} = options
     @_render()
     @_render_users()
 
@@ -18,6 +18,7 @@ class Mafia.Dialogs.VotePlayerDialogView extends Mafia.Dialogs.DialogView
 
   _render_users: ->
     @users.each (user) =>
-      @new Mafia.Dialogs.VotePlayerDialog.UserItemView,
-        app: @app, parent: this, model: user
-        $wrap: @$user_list
+      unless user.id == @current_user.id
+        @new Mafia.Dialogs.VotePlayerDialog.UserItemView,
+          app: @app, parent: this, model: user
+          $wrap: @$user_list, after_select: @after_select

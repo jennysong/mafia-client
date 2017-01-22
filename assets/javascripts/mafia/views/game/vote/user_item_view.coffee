@@ -1,6 +1,6 @@
-class Mafia.Game.Vote.CurrentUserView extends Mafia.View
-  id: 'mafia-game-vote-current-user-view'
-  class: 'current-user'
+class Mafia.Game.Vote.UserItemView extends Mafia.View
+  id: 'mafia-game-vote-user-item-view'
+  class: 'user-item-view'
   tagName: 'li'
   template: _.template '''
     <div class="user-item">
@@ -19,7 +19,7 @@ class Mafia.Game.Vote.CurrentUserView extends Mafia.View
   '''
 
   initialize: (options) ->
-    {@$wrap} = options
+    {@$wrap, @votable, @type} = options
     @_render()
     @_position()
 
@@ -32,5 +32,12 @@ class Mafia.Game.Vote.CurrentUserView extends Mafia.View
   _position: ->
     @$wrap.append @$el
 
-  vote: ->
-    console.log "Need to Vote"
+  vote: =>
+    if @votable
+      @vote_player_dialog = @new Mafia.Dialogs.VotePlayerDialogView,
+        app: @app, parent: this, current_user: @app.current_user, users: @collection,
+        after_select: (model) =>
+          @app.current_user.set "#{@type}_voted_user", model
+          #socket!!!
+          @vote_player_dialog.close()
+          console.log @app.current_user

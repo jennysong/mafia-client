@@ -7,7 +7,6 @@ class Mafia.Game.VoteView extends Mafia.View
   '''
 
   initialize: ->
-    # @_addFakeUsers()
     @_render()
     @_renderCurrentUser()
     @_renderPeerUsers()
@@ -26,9 +25,12 @@ class Mafia.Game.VoteView extends Mafia.View
   #   @collection.addFakeUsers()
 
   _renderCurrentUser: ->
-    new Mafia.Game.Vote.CurrentUserView app: @app, parent: this, $wrap: @$currentUserWrap, model: @model
+    new Mafia.Game.Vote.UserItemView
+      app: @app, parent: this, $wrap: @$currentUserWrap, model: @model,
+      collection: @collection, votable: true, type: 'general'
 
   _renderPeerUsers: ->
     @collection.each (peerUser) =>
-      unless peerUser.cid is @model.cid
-        new Mafia.Game.Vote.PeerUserView app: @app, parent: this, $wrap: @$peerUsersWrap, model: peerUser
+      unless peerUser.id is @model.id
+        new Mafia.Game.Vote.UserItemView
+          app: @app, parent: this, $wrap: @$peerUsersWrap, model: peerUser

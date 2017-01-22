@@ -8,8 +8,7 @@ class Mafia.StartView extends Mafia.View
   initialize: ->
     @_render()
     @_position()
-
-    setTimeout @_game_start, 10000
+    @timeout = setTimeout @_game_start, 10000
 
 
   events:
@@ -18,5 +17,10 @@ class Mafia.StartView extends Mafia.View
   _render: ->
     @$el.html @template @model.toJSON()
 
+  remove: ->
+    clearTimeout @timeout
+    super
+
   _game_start: =>
+    clearTimeout @timeout
     new Mafia.GameView app: @app, model: @model, collection:  @collection
