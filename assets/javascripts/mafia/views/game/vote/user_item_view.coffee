@@ -28,7 +28,7 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
     @_render()
     @_position()
 
-    @app.on 'vote updated', =>
+    @app.on 'vote-updated', =>
       @_refresh()
     @_togglePlaceHolder()
 
@@ -57,7 +57,7 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
     @$wrap.append @$el
 
   vote: =>
-    if @votable and @model.get("alive")
+    if @_check_votable()
       @vote_player_dialog = @new Mafia.Dialogs.VotePlayerDialogView,
         app: @app, parent: this, current_user: @app.current_user, users: @collection,
         after_select: (model) =>
@@ -65,3 +65,20 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
           @app.socket.emit("#{@type} vote", model.id)
           @_refresh()
           @vote_player_dialog.close()
+
+  _check_votable: ->
+    output = false
+    if @votable and @model.get("alive")
+      isOdd = _(@app.scene).isOdd()
+      if (@type is "general") and isOdd
+        output = true
+      else if !isOdd
+        output = true
+      else
+        output = false
+    else
+      output = false
+    output
+
+
+

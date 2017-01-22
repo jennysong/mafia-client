@@ -33,17 +33,12 @@ class Mafia.GameView extends Mafia.View
     @users = @collection
     @_render()
     @_position()
-    @_refresh_frame scene: 1
+    @_refresh_frame scene: @app.scene
     @_refresh_section 'chat'
 
+    @_initialize_sockets()
+    @_initialize_application_trigers()
 
-    @app.socket.on 'general vote update', (current_users) =>
-      @users.updatesCollectionByIndex current_users
-      @app.trigger 'vote updated'
-
-    @app.socket.on 'special vote update', (current_users) =>
-      @users.updatesCollectionByIndex current_users
-      @app.trigger 'vote updated'
 
   events:
     'click .change-section': 'change_section'
@@ -76,4 +71,21 @@ class Mafia.GameView extends Mafia.View
 
     @$el.removeClass('status-day status-night').addClass "status-" + time_of_the_day.toLowerCase()
 
+  _initialize_sockets: ->
+    @app.socket.on 'general vote update', (current_users) =>
+      @users.updatesCollectionByIndex current_users
+      @app.trigger 'vote-updated'
 
+    @app.socket.on 'special vote update', (current_users) =>
+      @users.updatesCollectionByIndex current_users
+      @app.trigger 'vote-updated'
+
+    @app.socket.on 'vote result', (game_data) =>
+      console.log game_data
+      @users.updatesCollectionByIndex game_data.users
+      @app.trigger 'vote-result-received', game_data
+
+  _initialize_application_trigers: ->
+    @app.on 'next-scene-started', =>
+      @_refresh_frame scene: @app.scene
+      #show result dialog

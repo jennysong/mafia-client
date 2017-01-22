@@ -10,7 +10,7 @@ class Mafia.AppStarter
     _(this).extend Backbone.Events
     @socket = io.connect 'http://localhost:3000'
     @view = new Mafia.ApplicationView app: this
-
+    @scene = 1
     # temporary
     gameStarted = false
     localStorage.clear()
@@ -36,3 +36,9 @@ class Mafia.AppStarter
         app: this, model: @current_user
         after_show: =>
           new Mafia.GameView app: this, model: @current_user, collection: @users
+
+    @on 'vote-result-received', (game_data) =>
+      @users.check_and_reset_votes() if _(@scene).isOdd()
+      @scene = game_data.scene
+      # @scene = 2 #delete later
+      @trigger 'next-scene-started'

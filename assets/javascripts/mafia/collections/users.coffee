@@ -23,3 +23,10 @@ class Mafia.Collections.Users extends Backbone.Collection
   isReady: ->
     users_without_empty_slot = @select (user) -> user.id
     _(users_without_empty_slot).every (user) -> user.get('userStatus')
+
+  check_and_reset_votes: ->
+    @each (user) =>
+      user.set {
+        "generalVote": null
+        "specialVote": null
+      }
