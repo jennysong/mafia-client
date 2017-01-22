@@ -9,6 +9,7 @@ class Mafia.Models.User extends Backbone.Model
     role: null
     id: null
     general_voted_user: null
+    special_voted_user: null
 
 
   setRandomAvatar: ->

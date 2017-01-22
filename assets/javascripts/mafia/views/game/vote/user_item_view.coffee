@@ -37,7 +37,8 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
       @vote_player_dialog = @new Mafia.Dialogs.VotePlayerDialogView,
         app: @app, parent: this, current_user: @app.current_user, users: @collection,
         after_select: (model) =>
-          @app.current_user.set "#{@type}_voted_user", model
+          # @app.current_user.set "#{@type}_voted_user", model
           #socket!!!
-          @vote_player_dialog.close()
-          console.log @app.current_user
+          # @vote_player_dialog.close()
+          # console.log @app.current_user
+          @app.socket.emit('general vote', model.id)
