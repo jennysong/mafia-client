@@ -21,18 +21,18 @@
   &.type-10 { background-image: url('avatars/10.png'); }
   &.type-11 { background-image: url('avatars/11.png'); }
   &.type-12 { background-image: url('avatars/12.png'); }
-  &.bg-olive { background-color: #9EAA2B; }
-  &.bg-orange { background-color: #A86F2C; }
-  &.bg-crimson { background-color: #A5462D; }
-  &.bg-pink { background-color: #A32E7F; }
-  &.bg-purple { background-color: #642DA5; }
-  &.bg-blue { background-color: #382CA8; }
-  &.bg-sky { background-color: #2C5FA8; }
-  &.bg-babyblue { background-color: #2C9AA8; }
-  &.bg-emerald { background-color: #2EA38D; }
-  &.bg-grass { background-color: #2EA347; }
-  &.bg-lime { background-color: #85A52D; }
-  &.bg-red { background-color: #A52D2D; }
+  &.bg-olive { background-color: $bg-olive; }
+  &.bg-orange { background-color: $bg-orange; }
+  &.bg-crimson { background-color: $bg-crimson; }
+  &.bg-pink { background-color: $bg-pink; }
+  &.bg-purple { background-color: $bg-purple; }
+  &.bg-blue { background-color: $bg-blue; }
+  &.bg-sky { background-color: $bg-sky; }
+  &.bg-babyblue { background-color: $bg-babyblue; }
+  &.bg-emerald { background-color: $bg-emerald; }
+  &.bg-grass { background-color: $bg-grass; }
+  &.bg-lime { background-color: $bg-lime; }
+  &.bg-red { background-color: $bg-red; }
 
   &.size-large { width: 200px; height: 200px; }
   &.size-medium { width: 100px; height: 100px; }

@@ -1,29 +1,56 @@
 @import "mafia";
+
 #mafia-game-view {
-  width: 100%;
-  .game-view-body {
-    overflow: auto;
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  background: $background-color;
+  z-index: 1;
+  .game-view-header, .game-view-body, .section-btns {
+    position: absolute;
   }
-  .user-item {
-    position: relative;
-    height: 76px; line-height: 66px;
-    padding: 5px 110px;
-    text-align: center;
-    .user-info {
+  .game-view-header {
+    top: 0; left: 0; right: 0; height: 56px;
+    line-height: 56px;
+    padding: 0 0 0 50px;
+    .bullet {
       position: absolute;
-      width: 100px;
-      span { display: block; margin: 0 auto; font-stretch: ultra-expanded; }
-      &.left { left: 5px; }
-      &.right { right: 5px; }
+      left: 4px; top: 0; height: 56px; width: 46px;
+      line-height: 56px; text-align: center;
+      font-size: 24px;
     }
-    .userName {
-      font-size: 14px;
-      line-height: 16px;
+    .item-name {
+      font-size: 22px;
+      .count { font-weight: bold; }
     }
-
-    .arrow {
-      font-size: 50px;
+    .section-btns {
+      right: 010px; top: 0;
+      font-size: 0;
     }
-
+    .section-btn {
+      font-size: 14px; font-weight: bold;
+      border: 1px solid rgba(white, 0.6);
+      @include inline-block;
+      border-left-width: 0; padding: 0 10px;
+      line-height: 30px; height: 32px;
+      &:first-child {
+        border-left-width: 1px;
+        @include border-radius(4px 0 0 4px);
+      }
+      &:last-child {
+        @include border-radius(0 4px 4px 0);
+      }
+    }
+  }
+  .game-view-body {
+    left: 0; top: 56px; right: 0; bottom: 0;
+    @include touch-overflow;
+  }
+  &.status-day {
+    .game-view-header { background: $bg-sky; }
+    .game-view-body { background: rgba($bg-sky, 0.8); }
+    .visible-status-night { display: none; }
+  }
+  &.status-night {
+    .visible-status-day { display: none; }
   }
 }

@@ -6,6 +6,19 @@ $important-color: #DD0000;
 $positive-color: #85A52D;
 $negative-color: #A52D2D;
 
+$bg-olive: #9EAA2B;
+$bg-orange: #A86F2C;
+$bg-crimson: #A5462D;
+$bg-pink: #A32E7F;
+$bg-purple: #642DA5;
+$bg-blue: #382CA8;
+$bg-sky: #2C5FA8;
+$bg-babyblue: #2C9AA8;
+$bg-emerald: #2EA38D;
+$bg-grass: #2EA347;
+$bg-lime: #85A52D;
+$bg-red: #A52D2D;
+
 @mixin box-valign-middle() {
   @include display-flex; @include align-items(center);
 }

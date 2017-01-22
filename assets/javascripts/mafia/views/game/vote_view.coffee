@@ -1,6 +1,5 @@
 class Mafia.Game.VoteView extends Mafia.View
   id: 'mafia-game-vote-view'
-  class: 'vote-view'
   template: _.template '''
     <ul class="current-user-wrap"></ul>
     <ul class="peer-users-wrap"></ul>

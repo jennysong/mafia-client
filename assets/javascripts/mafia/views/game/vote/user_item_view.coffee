@@ -9,6 +9,10 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
         <div class="userName"><%- currentUser.userName %></div>
       </div>
       <div class="user-info vote right">
+        <% if(votedUser) { %>
+          <span class='mafia-avatar size-small type-<%- votedUser.avatarId %> round size-large bg-<%- votedUser.avatarBg %>'></span>
+          <div class="userName"><%- votedUser.userName %></div>
+        <% } %>
         <div class="place-holder">
           <span class='mafia-avatar size-small type-1 round size-large bg-red'></span>
         </div>
@@ -23,11 +27,27 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
     @_render()
     @_position()
 
+    @listenTo @model, 'change', @_refresh
+    @_togglePlaceHolder()
   events:
     'click .vote': 'vote'
 
   _render: ->
-    @$el.html @template {currentUser: @model.toJSON()}
+    data = {currentUser: @model.toJSON(), votedUser: null}
+    @voted_user_id = @app.current_user.get  "#{@type}Vote"
+    if @voted_user_id
+      @voted_user = @app.users.get @voted_user_id
+      data["votedUser"] = @voted_user
+    @$el.html @template data
+
+  _togglePlaceHolder: ->
+    if @voted_user_id && @voted_user
+      @$el.removeClass 'show-place-holder'
+    else
+      @$el.addClass 'show-place-holder'
+
+  _refresh: ->
+    @_render()
 
   _position: ->
     @$wrap.append @$el
