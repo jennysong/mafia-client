@@ -61,9 +61,10 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
       @vote_player_dialog = @new Mafia.Dialogs.VotePlayerDialogView,
         app: @app, parent: this, current_user: @app.current_user, users: @collection,
         after_select: (model) =>
-          @app.current_user.set "#{@type}Vote", model.id
-          @app.socket.emit("#{@type} vote", model.id)
-          @_refresh()
+          if @_check_votable()
+            @app.current_user.set "#{@type}Vote", model.id
+            @app.socket.emit("#{@type} vote", model.id)
+            @_refresh()
           @vote_player_dialog.close()
 
   _check_votable: ->
@@ -72,7 +73,7 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
       isOdd = _(@app.scene).isOdd()
       if (@type is "general") and isOdd
         output = true
-      else if !isOdd
+      else if (@type is "special") and !isOdd
         output = true
       else
         output = false

@@ -38,7 +38,6 @@ class Mafia.AppStarter
           new Mafia.GameView app: this, model: @current_user, collection: @users
 
     @on 'vote-result-received', (game_data) =>
-      @users.check_and_reset_votes() if _(@scene).isOdd()
       @scene = game_data.scene
-      # @scene = 2 #delete later
+      @users.check_and_reset_votes() if _(@scene).isOdd()
       @trigger 'next-scene-started'
