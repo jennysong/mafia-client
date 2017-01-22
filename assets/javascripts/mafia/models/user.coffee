@@ -21,15 +21,15 @@ class Mafia.Models.User extends Backbone.Model
       avatarBg: _(@bgColors).sample()
 
   get_result: (scene) ->
-    result = ""
+    result = "Game finished!! "
     if scene is @MAFIA_WIN_SCENE_NUMBER
-      result = "Mafia wins the game!"
+      result += "Mafia wins the game! "
       if @get("role") is "mafia"
         result += "You Win!!"
       else
         result += "You Lose noob!!"
     else
-      result = "All mafias are found!"
+      result += "All mafias are found! "
       if @get("role") is "mafia"
         result += "You Lose noob!!"
       else
