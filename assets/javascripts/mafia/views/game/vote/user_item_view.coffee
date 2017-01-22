@@ -1,6 +1,5 @@
 class Mafia.Game.Vote.UserItemView extends Mafia.View
-  id: 'mafia-game-vote-user-item-view'
-  class: 'user-item-view'
+  className: 'mafia-game-vote-user-item-view'
   tagName: 'li'
   template: _.template '''
     <div class="user-item">
@@ -13,9 +12,14 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
           <span class='mafia-avatar size-small type-<%- votedUser.avatarId %> round bg-<%- votedUser.avatarBg %>'></span>
           <div class="userName"><%- votedUser.userName || "Unknown" %></div>
         <% } %>
-        <div class="place-holder">
-          <span class='mafia-avatar size-small type-0 round'></span>
+        <div class="visible-other-vote">
+          <div class="place-holder">
+            <span class='mafia-avatar size-small type-0 round'></span>
             <div class="userName">Not Voted</div>
+          </div>
+        </div>
+        <div class="visible-my-vote">
+          <div class="vote-btn">Vote</div>
         </div>
       </div>
       <div class="arrow"><span class='entypo right inline'></span></div>
@@ -42,6 +46,7 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
       @voted_user = @app.users.get @voted_user_id
       data["votedUser"] = @voted_user.toJSON() if @voted_user
     @$el.html @template data
+    @$el.addClass if @votable then 'my-vote' else 'other-vote'
 
   _togglePlaceHolder: ->
     if @voted_user_id && @voted_user
@@ -66,6 +71,7 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
             @app.socket.emit("#{@type} vote", model.id)
             @_refresh()
           @vote_player_dialog.close()
+          @$el.addClass 'voted'
 
   _check_votable: ->
     output = false

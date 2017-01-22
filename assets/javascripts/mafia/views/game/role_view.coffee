@@ -1,12 +1,25 @@
 class Mafia.Game.RoleView extends Mafia.View
   id: 'mafia-game-role-view'
-  class: 'role-view'
 
   template: _.template '''
-    <div class="title">You are a <%- user.role %>!</div>
+    <div class="user-id-card <%- user.role %>">
+      <div class="issuer-name truncate">Global Game Jam 2017</div>
+      <div class="avatar">
+        <div class="mafia-avatar type-<%- user.avatarId %> bg-<%- user.avatarBg %>"></div>
+      </div>
+      <div class="user-name"><%- user.userName %></div>
+      <div class="user-role"><%- _(user.role).titleize() %></div>
+      <div class="user-description">
+        Wins if there are no mafia remaining. Chooses one person to kill every night. Wins when the mafia outnumber the village. Can choose one person to save every night. Sided with the village.
+      </div>
+    </div>
     <% if(user.role != "villager" && scene % 2 == 0)  { %>
-      <ul class="current-user-wrap"></ul>
-      <ul class="peer-users-wrap"></ul>
+    <div class="special-vote-area">
+      <div class="area-title"><%- _(user.role).titleize() %> meeting</div>
+        <ul class="current-user-wrap"></ul>
+        <ul class="peer-users-wrap"></ul>
+      </div>
+    </div>
     <% } %>
   '''
 
