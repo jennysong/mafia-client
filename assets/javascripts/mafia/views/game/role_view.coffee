@@ -10,7 +10,10 @@ class Mafia.Game.RoleView extends Mafia.View
       <div class="user-name"><%- user.userName %></div>
       <div class="user-role"><%- _(user.role).titleize() %></div>
       <div class="user-description">
-        Wins if there are no mafia remaining. Chooses one person to kill every night. Wins when the mafia outnumber the village. Can choose one person to save every night. Sided with the village.
+        <div class="visible-role-villager">Wins if there are no mafia remaining.</div>
+        <div class="visible-role-police">Suspects one person every night. Receives a report on that person. Sided with the village.</div>
+        <div class="visible-role-mafia">Chooses one person to kill every night. Wins when the mafia outnumber the village.</div>
+        <div class="visible-role-doctor">Can choose one person to save every night. Sided with the village.</div>
       </div>
     </div>
     <% if(user.role != "villager" && scene % 2 == 0)  { %>

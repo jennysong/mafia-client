@@ -9,6 +9,7 @@ input[type='submit'] {
   &::-moz-placeholder { color: white; opacity: 0.4; }
   &:-ms-input-placeholder { color: white; opacity: 0.4; }
   &:-moz-placeholder { color: white; opacity: 0.4; }
+  @include appearance(none);
 }
 
 input[type='text'], input[type='password'], input[type='number'] {

@@ -35,6 +35,28 @@
     .user-description {
       font-size: 12px; line-height: 120%; color: #666;
     }
+
+    &.villager {
+      .visible-role-police { display: none }
+      .visible-role-mafia { display: none }
+      .visible-role-doctor { display: none }
+    }
+    &.police {
+      .visible-role-villager { display: none }
+      .visible-role-mafia { display: none }
+      .visible-role-doctor { display: none }
+    }
+    &.mafia {
+      .visible-role-villager { display: none }
+      .visible-role-police { display: none }
+      .visible-role-doctor { display: none }
+    }
+    &.doctor {
+      .visible-role-villager { display: none }
+      .visible-role-police { display: none }
+      .visible-role-mafia { display: none }
+    }
+
   }
 
   .special-vote-area {
