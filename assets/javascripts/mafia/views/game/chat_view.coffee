@@ -28,9 +28,9 @@ class Mafia.Game.ChatView extends Mafia.View
 
   send: (e) ->
     e.preventDefault()
-    if message = @$("[name=chatInput]").val()
-      @app.socket.emit "new message", @$("[name=chatInput]").val()
-      @$("[name=chatInput]").val('')
+    if message = @$input_field.val()
+      @app.socket.emit "new message", @$input_field.val()
+      @$input_field.val('')
 
   _scroll_to: (message_item_view) ->
     @$message_list.animate scrollTop: message_item_view.$el.offset().top + @$message_list.scrollTop()
@@ -38,6 +38,7 @@ class Mafia.Game.ChatView extends Mafia.View
 
   _render: ->
     @$el.html @template()
+    @$input_field  = @$("[name=chatInput]")
     @$message_list = @$(".message-list")
 
 

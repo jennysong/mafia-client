@@ -32,7 +32,7 @@ class Mafia.GameView extends Mafia.View
 
   initialize: (options = {scene: 1}) ->
     @users    = @collection
-    @messages = new Backbone.Collection
+    @messages = new Mafia.Collections.Messages
 
     @_render()
     @_position()
@@ -89,6 +89,7 @@ class Mafia.GameView extends Mafia.View
       @app.trigger 'vote-result-received', game_data
 
     @app.socket.on "update message", (message_attrs) =>
+      message_attrs.type = 'user'
       message = new @messages.model message_attrs
       message.user = @app.users.get message_attrs.userId
       @messages.add message
