@@ -102,7 +102,7 @@ class Mafia.GameView extends Mafia.View
         after_stop: => @_hide_notification()
       @_show_notification countdown_view
 
-    @app.socket.on 'start general vote countdown', =>
+    @app.socket.on 'start special vote countdown', =>
       countdown_view = new Mafia.Game.CountdownView
         message: 'Countdown #number!', time: 10
         after_stop: => @_hide_notification()
