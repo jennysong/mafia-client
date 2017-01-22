@@ -1,4 +1,7 @@
 @import "mafia";
 #mafia-game-vote-user-item-view {
-  .place-holder{ display: none; }
+  .place-holder { display: none; }
+  &.show-place-holder {
+    .place-holder { display: block; }
+  }
 }

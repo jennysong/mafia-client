@@ -5,8 +5,8 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
   template: _.template '''
     <div class="user-item">
       <div class="user-info left">
-        <span class='mafia-avatar size-small type-<%- currentUser.avatarId %> round size-large bg-<%- currentUser.avatarBg %>'></span>
-        <div class="userName"><%- currentUser.userName %></div>
+        <span class='mafia-avatar size-small type-<%- user.avatarId %> round size-large bg-<%- user.avatarBg %>'></span>
+        <div class="userName"><%- user.userName %></div>
       </div>
       <div class="user-info vote right">
         <% if(votedUser) { %>
@@ -27,17 +27,19 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
     @_render()
     @_position()
 
-    @listenTo @model, 'change', @_refresh
+    @app.on 'general vote updated', =>
+      @_refresh()
     @_togglePlaceHolder()
+
   events:
     'click .vote': 'vote'
 
   _render: ->
-    data = {currentUser: @model.toJSON(), votedUser: null}
-    @voted_user_id = @app.current_user.get  "#{@type}Vote"
+    data = {user: @model.toJSON(), votedUser: null}
+    @voted_user_id = @model.get  "#{@type}Vote"
     if @voted_user_id
       @voted_user = @app.users.get @voted_user_id
-      data["votedUser"] = @voted_user
+      data["votedUser"] = @voted_user.toJSON() if @voted_user
     @$el.html @template data
 
   _togglePlaceHolder: ->
@@ -46,8 +48,9 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
     else
       @$el.addClass 'show-place-holder'
 
-  _refresh: ->
+  _refresh: =>
     @_render()
+    @_togglePlaceHolder()
 
   _position: ->
     @$wrap.append @$el
@@ -58,6 +61,5 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
         app: @app, parent: this, current_user: @app.current_user, users: @collection,
         after_select: (model) =>
           @app.current_user.set "#{@type}Vote", model.id
-          console.log @app.current_user
           @app.socket.emit("#{@type} vote", model.id)
           @vote_player_dialog.close()

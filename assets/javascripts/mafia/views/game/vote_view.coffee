@@ -32,4 +32,4 @@ class Mafia.Game.VoteView extends Mafia.View
     @collection.each (peerUser) =>
       unless peerUser.id is @model.id
         new Mafia.Game.Vote.UserItemView
-          app: @app, parent: this, $wrap: @$peerUsersWrap, model: peerUser
+          app: @app, parent: this, $wrap: @$peerUsersWrap, model: peerUser, type: 'general'

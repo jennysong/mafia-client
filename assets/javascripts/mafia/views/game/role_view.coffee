@@ -39,4 +39,4 @@ class Mafia.Game.RoleView extends Mafia.View
         #do nothing
       else if peerUser.get("role") == @model.get("role")
         new Mafia.Game.Vote.UserItemView
-          app: @app, parent: this, $wrap: @$peerUsersWrap, model: peerUser
+          app: @app, parent: this, $wrap: @$peerUsersWrap, model: peerUser, type: 'special'

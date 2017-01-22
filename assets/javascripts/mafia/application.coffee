@@ -27,7 +27,6 @@ class Mafia.AppStarter
 
 
     @on 'game started', (game_data) =>
-      console.log game_data
       @users = new Mafia.Collections.Users
       @users.reset game_data.users
       @scene = game_data.scene

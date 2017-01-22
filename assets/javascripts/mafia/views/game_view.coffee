@@ -37,6 +37,10 @@ class Mafia.GameView extends Mafia.View
     @_refresh_section 'chat'
 
 
+    @app.socket.on 'general vote update', (current_users) =>
+      @users.updatesCollectionByIndex current_users
+      @app.trigger 'general vote updated'
+
   events:
     'click .change-section': 'change_section'
 
