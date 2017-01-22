@@ -8,6 +8,7 @@
   background-size: 130%;
   background-color: #999;
   &.round { @include border-radius(50%); }
+  &.type-0 { background-image: url('avatars/0.png'); }
   &.type-1 { background-image: url('avatars/1.png'); }
   &.type-2 { background-image: url('avatars/2.png'); }
   &.type-3 { background-image: url('avatars/3.png'); }
@@ -36,4 +37,13 @@
   &.size-large { width: 200px; height: 200px; }
   &.size-medium { width: 100px; height: 100px; }
   &.size-small { width: 50px; height: 50px; }
+
+  &.mask-for-waiting-view {
+    background-color: transparent;
+
+    -webkit-mask-image: -webkit-gradient(
+    linear, center top, center bottom,
+    color-stop(0.8,  rgba(black,1)),
+    color-stop(1,  rgba(black,0)));
+  }
 }

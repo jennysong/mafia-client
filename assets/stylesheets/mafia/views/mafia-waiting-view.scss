@@ -1,0 +1,98 @@
+@import "mafia";
+
+
+#mafia-waiting-view {
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 41px;
+
+  .avatar-item-list {
+    position: absolute;
+    left: 0; top: 0; right: 0;
+    height: 40%;
+    .avatar-item {
+      float: left;
+      width: 100px;
+    }
+  }
+
+  .waiting-users.section-item {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    bottom: 0;
+    @include touch-overflow;
+  }
+  .status-indicator-wrap {
+    position: absolute;
+    top: 0; padding: 20px 20px;
+    left: 0; right: 0; height: 70px;
+    @include background-image(linear-gradient(180deg, rgba($background-color, 1) 50px, rgba($background-color, 0) 1));
+    z-index: 2;
+  }
+  .status-indicator {
+    display: block;
+    font-weight: bold; font-size: 14px;
+    text-transform: uppercase; letter-spacing: 2px;
+    background: white; color: black; line-height: 30px;
+    @include border-radius(4px); text-align: center;
+  }
+
+  .section-item {
+    padding: 70px 20px 120px;
+  }
+
+  .waiting-user-list {
+    font-size: 0; margin: 15px 0;
+
+  }
+  .user-item {
+    font-size: 18px; margin-bottom: 5px;
+    @include inline-block;
+    position: relative; width: 33.33%;
+    text-align: center;
+    .status-bullet {
+      position: absolute;
+      right: 10px; top: 10px; margin-top: -13px; width: 26px; height: 26px;
+      line-height: 26px; text-align: center;
+      @include border-radius(50%); background: #999;
+      color: white; @include box-shadow(rgba(black, 0.3) 0 3px 4px);
+    }
+    .item-name {  line-height: 22px; height: 22px; }
+    &.user-status-ready {
+      .status-bullet { background: $positive-color; }
+      .item-name { font-weight: bold; }
+      .visible-user-status-waiting { display: none }
+    }
+    &.user-status-waiting {
+      .status-bullet { display: none; }
+      .item-name { opacity: 0.5; }
+      .mafia-avatar { opacity: 0.5; }
+      .mafia-avatar.type-0 { opacity: 1; }
+      .visible-user-status-ready { display: none }
+    }
+  }
+  .actions {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 120px; pointer-events: none;
+    padding: 15px 0;
+    @include background-image(linear-gradient(180deg, rgba($background-color, 0) 0, rgba($background-color, 1) 0.5));
+  }
+  .ready-button {
+    margin: 0 auto; pointer-events: auto;
+    @include border-radius(50%);
+    width: 90px; height: 90px; border: 2px solid white;
+    line-height: 86px; text-align: center;
+    text-transform: uppercase; font-weight: bold;
+    letter-spacing: 2px; font-size: 14px;
+  }
+
+  &.status-waiting {
+    .ready-button { background-color: $positive-color; }
+    .visible-ready { display: none; }
+  }
+  &.status-ready {
+    .ready-button { background-color: $negative-color; }
+    .visible-waiting { display: none; }
+  }
+
+}
