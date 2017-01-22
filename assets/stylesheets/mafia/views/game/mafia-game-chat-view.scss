@@ -75,6 +75,7 @@
         content: 'Ghost'; color: lighten($important-color, 25%);
         font-size: 11px; text-transform: uppercase; margin-left: 5px;
       }
+      .item-message { background-color: rgba(lighten($important-color, 40%), 0.7) }
     }
   }
   .system.message-item {

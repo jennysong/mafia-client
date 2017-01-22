@@ -24,6 +24,7 @@ class Mafia.GameView extends Mafia.View
   '''
   MAFIA_WIN_SCENE_NUMBER:    666
   VILLAGER_WIN_SCENE_NUMBER: 999
+  finished: false
 
   sections:
     chat: 'ChatView'
@@ -108,6 +109,7 @@ class Mafia.GameView extends Mafia.View
         # new Mafia.GameOverView
         #   app: @app, parent: this, model: @app.current_user
         @messages.add_system_message @model.get_result(@app.scene)
+        @finished = true
         @_refresh_section 'chat'
       else
         if deadUser
