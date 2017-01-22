@@ -33,10 +33,6 @@ class Mafia.GameView extends Mafia.View
     @messages = new Backbone.Collection
 
     @_render()
-  @app.socket.on "update message", (message_attrs) =>
-      message = new @messages.model message_attrs
-      message.user = @app.users.get message_attrs.userId
-      @messages.add message
 
     @_initialize_sockets()
     @_initialize_application_trigers()
