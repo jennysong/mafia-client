@@ -86,6 +86,7 @@ class Mafia.GameView extends Mafia.View
       @app.trigger 'vote-updated'
 
     @app.socket.on 'vote result', (game_data) =>
+      @_hide_notification()
       @users.updatesCollectionByIndex game_data.users
       @messages.add_system_message game_data.policeMessage if game_data.policeMessage and (@model.get("role") is "police")
       @app.trigger 'vote-result-received', game_data
@@ -99,13 +100,11 @@ class Mafia.GameView extends Mafia.View
     @app.socket.on 'start general vote countdown', =>
       countdown_view = new Mafia.Game.CountdownView
         message: 'Countdown #number!', time: 10
-        after_stop: => @_hide_notification()
       @_show_notification countdown_view
 
     @app.socket.on 'start special vote countdown', =>
       countdown_view = new Mafia.Game.CountdownView
         message: 'Countdown #number!', time: 10
-        after_stop: => @_hide_notification()
       @_show_notification countdown_view
 
   _initialize_application_trigers: ->
