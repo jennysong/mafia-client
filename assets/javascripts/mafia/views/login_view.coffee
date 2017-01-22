@@ -8,7 +8,7 @@ class Mafia.LoginView extends Mafia.View
         <div class="sub-text">Deep in the Night</div>
       </div>
       <div class="avatar-wrap">
-        <span class='mafia-avatar type-<%- avatarId %> round size-large bg-<%- avatarBg %>'></span>
+
       </div>
       <div class="field-row">
         <input name='userName' type="text" class="field" placeholder="Username">
@@ -22,6 +22,12 @@ class Mafia.LoginView extends Mafia.View
     </form>
   '''
 
+  avatar_template: _.template '''
+    <span class='mafia-avatar type-<%- avatarId %> round size-large bg-<%- avatarBg %>'></span>
+  '''
+
+
+
   events:
     'submit': 'login'
 
@@ -29,7 +35,16 @@ class Mafia.LoginView extends Mafia.View
     @user = new Mafia.Models.User
     @user.setRandomAvatar()
     @_render()
+    @_render_avatar()
     @_position()
+
+  events:
+    'click .mafia-avatar': 'reroll_avatar'
+
+
+  reroll_avatar: ->
+    @user.setRandomAvatar()
+    @_render_avatar()
 
   login: (e) ->
     e.preventDefault()
@@ -47,6 +62,10 @@ class Mafia.LoginView extends Mafia.View
   _render: ->
     @$el.html @template @user.toJSON()
     @$form = @$("form")
+    @$avatar_wrap = @$(".avatar-wrap")
+
+  _render_avatar: ->
+    @$avatar_wrap.html @avatar_template @user.toJSON()
 
   _position: ->
     @app.view.append_view this
