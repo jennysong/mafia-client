@@ -7,6 +7,12 @@ class Mafia.Dialogs.GameResultDialogView extends Mafia.Dialogs.DialogView
       <%- userName %> is a <span class="role"><%- role %>.</span>
     </div>
   '''
+  none_dead_template: _.template '''
+    <div class="text">
+      Goob Job, Doctor.
+      None is <span class="role">dead.</span>
+    </div>
+  '''
 
   initialize: (options) ->
     {@after_show} = options
@@ -21,7 +27,11 @@ class Mafia.Dialogs.GameResultDialogView extends Mafia.Dialogs.DialogView
     'click': "close"
 
   _render: ->
-    @$el.html @template @model.toJSON()
+    if @model
+      @$el.html @template @model.toJSON()
+    else
+      @$el.html @none_dead_template()
+
     @$role = @$(".role")
     @$role.css 'opacity', 0
 

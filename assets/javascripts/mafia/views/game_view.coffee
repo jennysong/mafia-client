@@ -112,14 +112,11 @@ class Mafia.GameView extends Mafia.View
         @finished = true
         @_refresh_section 'chat'
       else
-        if deadUser
-          new Mafia.Dialogs.GameResultDialogView
-            app: @app, parent: this, model: deadUser
-            after_show: =>
-              @_refresh_frame scene: @app.scene
-        else
-          @_refresh_frame scene: @app.scene
-      #show result dialog
+        new Mafia.Dialogs.GameResultDialogView
+          app: @app, parent: this, model: deadUser
+          after_show: =>
+            @_refresh_frame scene: @app.scene
+
 
   remove: ->
     @app.socket.off 'general vote update'
