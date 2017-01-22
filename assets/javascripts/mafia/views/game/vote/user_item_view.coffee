@@ -35,8 +35,8 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
   _render: ->
     @data = {currentUser: @model.toJSON()}
     @voted_user_id = @app.current_user.get  "#{@type}Vote"
-    if voted_user_id
-      @voted_user = @app.users.get voted_user_id
+    if @voted_user_id
+      @voted_user = @app.users.get @voted_user_id
       data["votedUser"] = @voted_user
     @$el.html @template data
 
