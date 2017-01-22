@@ -41,3 +41,7 @@ class Mafia.Waiting.StatusIndicatorView extends Mafia.View
 
   _position: ->
     @$wrap.append @el
+
+  remove: ->
+    clearInterval @_counter
+    super
