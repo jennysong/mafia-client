@@ -33,6 +33,8 @@ class Mafia.WaitingView extends Mafia.View
 
     @_mark_as_waiting()
 
+    @_render_game_view()
+
   events:
     'click .ready-button': 'toggle_ready'
 
@@ -76,5 +78,5 @@ class Mafia.WaitingView extends Mafia.View
   _render_game_view: ->
     new Mafia.GameView app: @app, parent: this, model: @app.current_user, collection: @users
 
-  _render_game_view: ->
+  _render_result_view: ->
     new Mafia.ResultView app: @app, parent: this, report: @report
