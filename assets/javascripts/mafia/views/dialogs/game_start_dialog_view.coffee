@@ -11,6 +11,10 @@ class Mafia.Dialogs.GameStartDialogView extends Mafia.Dialogs.DialogView
     {@after_show} = options
     @_render()
 
+    @_timeout = setTimeout =>
+      @close()
+    , 4000
+
   events:
     'click': "close"
 
@@ -29,3 +33,7 @@ class Mafia.Dialogs.GameStartDialogView extends Mafia.Dialogs.DialogView
   hide: ->
     @$dialog_el.transition opacity: 0, 1200, =>
       super
+
+  close: ->
+    clearTimeout @_timeout
+    super
