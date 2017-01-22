@@ -5,16 +5,17 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
   template: _.template '''
     <div class="user-item">
       <div class="user-info left">
-        <span class='mafia-avatar size-small type-<%- user.avatarId %> round size-large bg-<%- user.avatarBg %>'></span>
-        <div class="userName"><%- user.userName %></div>
+        <span class='mafia-avatar size-small type-<%- user.avatarId %> round bg-<%- user.avatarBg %>'></span>
+        <div class="userName"><%- user.userName || "Unknown" %></div>
       </div>
       <div class="user-info vote right">
         <% if(votedUser) { %>
-          <span class='mafia-avatar size-small type-<%- votedUser.avatarId %> round size-large bg-<%- votedUser.avatarBg %>'></span>
-          <div class="userName"><%- votedUser.userName %></div>
+          <span class='mafia-avatar size-small type-<%- votedUser.avatarId %> round bg-<%- votedUser.avatarBg %>'></span>
+          <div class="userName"><%- votedUser.userName || "Unknown" %></div>
         <% } %>
         <div class="place-holder">
-          <span class='mafia-avatar size-small type-1 round size-large bg-red'></span>
+          <span class='mafia-avatar size-small type-0 round'></span>
+            <div class="userName">Not Voted</div>
         </div>
       </div>
       <div class="arrow"><span class='entypo right inline'></span></div>

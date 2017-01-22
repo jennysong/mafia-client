@@ -1,0 +1,16 @@
+#vote-player-dialog {
+  .user-item {
+    position: relative;
+    height:  110px;
+    padding: 5px 5px 5px 130px;
+    .mafia-avatar {
+      position: absolute;
+      width: 100px;
+      left: 5px;
+    }
+    .item-name {
+      font-size: 30px;
+      line-height: 100px;
+    }
+  }
+}
