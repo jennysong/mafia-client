@@ -3,7 +3,13 @@
 
 $background-color: #071E35;
 $important-color: #DD0000;
+$positive-color: #85A52D;
+$negative-color: #A52D2D;
 
 @mixin box-valign-middle() {
   @include display-flex; @include align-items(center);
+}
+
+@mixin touch-overflow($direction: auto) {
+  overflow: $direction; -webkit-overflow-scrolling: touch;
 }
