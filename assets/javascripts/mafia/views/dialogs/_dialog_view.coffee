@@ -27,13 +27,15 @@ class Mafia.Dialogs.DialogView extends Mafia.View
   events: {}
 
   close: ->
-    @hide()
-    @remove()
-    @$dialog_el.remove()
+    @hide =>
+      @remove()
+      @$dialog_el.remove()
 
 
-  show: ->
-    @$el.addClass('dialog-show').removeClass 'dialog-hide'
+  show: (callback) ->
+    @$dialog_el.addClass('dialog-show').removeClass 'dialog-hide'
+    callback() if _(callback).isFunction()
 
-  hide: ->
-    @$el.addClass('dialog-hide').removeClass 'dialog-show'
+  hide: (callback) ->
+    @$dialog_el.addClass('dialog-hide').removeClass 'dialog-show'
+    callback() if _(callback).isFunction()

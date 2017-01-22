@@ -26,9 +26,13 @@ class Mafia.AppStarter
         new Mafia.LoginView app: this, parent: this
 
 
-    @on 'game started', (game_data) =>
+    @on 'game-started', (game_data) =>
       @users = new Mafia.Collections.Users
       @users.reset game_data.users
       @scene = game_data.scene
       @current_user = @users.get @socket.id
-      new Mafia.StartView app: this, model: @current_user, collection:  @users
+
+      new Mafia.Dialogs.GameStartDialogView
+        app: this, model: @current_user
+        after_show: =>
+          new Mafia.GameView app: this, model: @current_user, collection: @users

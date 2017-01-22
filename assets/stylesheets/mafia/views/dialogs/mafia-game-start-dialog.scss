@@ -1,0 +1,9 @@
+@import "mafia";
+
+#mafia-game-start-dialog {
+  position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+  font-size: 30px; background: black; color: white;
+  @include box-valign-middle; font-weight: 300; text-align: center; z-index: 100;
+  .text { width: 100%; }
+  .role { font-weight: bold; }
+}

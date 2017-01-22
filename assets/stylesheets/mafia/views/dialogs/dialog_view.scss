@@ -3,7 +3,7 @@
 .mafia-dialog-view {
   position: absolute;
   left: 0; top: 0; right: 0; bottom: 0;
-  padding: 30px 0;
+  padding: 30px 0; z-index: 2;
   @include touch-overflow();
 
   height: auto; bottom: 0;
@@ -48,6 +48,6 @@
     }
   }
 
-  &.dialog-show { }
-  &.dialog-hide { }
+  &.dialog-show { display: block; }
+  &.dialog-hide { display: none; }
 }
