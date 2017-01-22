@@ -27,5 +27,7 @@ class Mafia.AppStarter
 
 
     @on 'game started', (game_data) =>
-      users = new Mafia.Collections.Users
-      new Mafia.GameView app: this, model: @current_user, collection:  users
+      @users = new Mafia.Collections.Users
+      @users.reset game_data
+      @current_user = @users.get @socket.id
+      new Mafia.GameView app: this, model: @current_user, collection:  @users

@@ -7,7 +7,7 @@ class Mafia.Game.VoteView extends Mafia.View
   '''
 
   initialize: ->
-    @_addFakeUsers()
+    # @_addFakeUsers()
     @_render()
     @_renderCurrentUser()
     @_renderPeerUsers()
@@ -21,9 +21,9 @@ class Mafia.Game.VoteView extends Mafia.View
   _position: ->
     @parent.$section_wrap.append @$el
 
-  _addFakeUsers: ->
-    @collection.add @model
-    @collection.addFakeUsers()
+  # _addFakeUsers: ->
+  #   @collection.add @model
+  #   @collection.addFakeUsers()
 
   _renderCurrentUser: ->
     new Mafia.Game.Vote.CurrentUserView app: @app, parent: this, $wrap: @$currentUserWrap, model: @model
