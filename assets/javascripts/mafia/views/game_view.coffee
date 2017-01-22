@@ -102,6 +102,11 @@ class Mafia.GameView extends Mafia.View
         after_stop: => @_hide_notification()
       @_show_notification countdown_view
 
+    @app.socket.on 'start general vote countdown', =>
+      countdown_view = new Mafia.Game.CountdownView
+        message: 'Countdown #number!', time: 10
+        after_stop: => @_hide_notification()
+      @_show_notification countdown_view
 
   _initialize_application_trigers: ->
     @app.on 'show-vote-result', (deadUser)=>
@@ -129,6 +134,6 @@ class Mafia.GameView extends Mafia.View
     @$el.removeClass 'notification-show'
 
   _show_notification: (view) ->
-    @$notification_wrap.append view.el if view instanceof Backbone.View
+    @$notification_wrap.html view.el if view instanceof Backbone.View
     @$el.addClass 'notification-show'
 
