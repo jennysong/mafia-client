@@ -15,6 +15,7 @@ class Mafia.Dialogs.GameResultDialogView extends Mafia.Dialogs.DialogView
     @_timeout = setTimeout =>
       @close()
     , 4000
+    # @_give_information_to_cop if @app.current_user.get("role") is "police"
 
   events:
     'click': "close"
@@ -38,3 +39,6 @@ class Mafia.Dialogs.GameResultDialogView extends Mafia.Dialogs.DialogView
   close: ->
     clearTimeout @_timeout
     super
+
+  # _give_information_to_cop: ->
+  #   @parent.messages.add_system_message()

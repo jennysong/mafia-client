@@ -86,6 +86,7 @@ class Mafia.GameView extends Mafia.View
 
     @app.socket.on 'vote result', (game_data) =>
       @users.updatesCollectionByIndex game_data.users
+      @messages.add_system_message game_data.policeMessage if game_data.policeMessage and (@model.get("role") is "police")
       @app.trigger 'vote-result-received', game_data
 
     @app.socket.on "update message", (message_attrs) =>
