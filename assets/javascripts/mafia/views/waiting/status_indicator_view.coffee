@@ -2,7 +2,7 @@ class Mafia.Waiting.StatusIndicatorView extends Mafia.View
   className: 'status-indicator'
   templates:
     waiting: _.template '''
-      Waiting Players...
+      Waiting For Players...
     '''
 
     counting: _.template '''

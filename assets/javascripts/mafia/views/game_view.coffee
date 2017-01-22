@@ -29,8 +29,9 @@ class Mafia.GameView extends Mafia.View
     role: 'RoleView'
 
   initialize: (options = {scene: 1}) ->
+    @users    = @collection
+    @messages = new Backbone.Collection
 
-    @users = @collection
     @_render()
     @_position()
     @_refresh_frame scene: 1
@@ -44,6 +45,10 @@ class Mafia.GameView extends Mafia.View
     @app.socket.on 'special vote update', (current_users) =>
       @users.updatesCollectionByIndex current_users
       @app.trigger 'vote updated'
+
+    @app.socket.on "update message", (message_attrs) =>
+      console.log message_attrs
+      @messages.add message_attrs
 
   events:
     'click .change-section': 'change_section'
@@ -77,3 +82,9 @@ class Mafia.GameView extends Mafia.View
     @$el.removeClass('status-day status-night').addClass "status-" + time_of_the_day.toLowerCase()
 
 
+
+  remove: ->
+    @app.socket.off 'general vote update'
+    @app.socket.off 'special vote update'
+    @app.socket.off 'update message'
+    super
