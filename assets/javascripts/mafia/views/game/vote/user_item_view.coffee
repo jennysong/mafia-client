@@ -33,7 +33,7 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
     'click .vote': 'vote'
 
   _render: ->
-    @data = {currentUser: @model.toJSON()}
+    data = {currentUser: @model.toJSON()}
     @voted_user_id = @app.current_user.get  "#{@type}Vote"
     if @voted_user_id
       @voted_user = @app.users.get @voted_user_id
