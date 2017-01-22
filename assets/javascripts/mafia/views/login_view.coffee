@@ -26,11 +26,6 @@ class Mafia.LoginView extends Mafia.View
     <span class='mafia-avatar type-<%- avatarId %> round size-large bg-<%- avatarBg %>'></span>
   '''
 
-
-
-  events:
-    'submit': 'login'
-
   initialize: ->
     @user = new Mafia.Models.User
     @user.setRandomAvatar()
@@ -39,6 +34,7 @@ class Mafia.LoginView extends Mafia.View
     @_position()
 
   events:
+    'submit': 'login'
     'click .mafia-avatar': 'reroll_avatar'
 
 
