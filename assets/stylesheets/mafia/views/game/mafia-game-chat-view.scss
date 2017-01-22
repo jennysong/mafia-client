@@ -36,12 +36,13 @@
     }
   }
 
-
   .message-item {
-    margin: 0;
+    margin: 0 0 5px;
+  }
+  .user.message-item {
     .item-label {
       position: relative;
-      padding: 5px 0 5px 50px;
+      padding: 5px 0 0 50px;
     }
     .avatar {
       position: absolute; top: 0; left: 0; width: 44px; height: 44px;
@@ -68,6 +69,15 @@
         @include border-radius(17px 0 17px 17px);
       }
     }
+  }
+  .system.message-item {
+    .item-label {
+      @include inline-block; @include border-radius(12px);
+      position: relative; padding: 4px 8px 4px 24px;
+      font-size: 14px;
+      background: rgba(black, 0.4); color: rgba(white, 0.8); line-height: 120%;
+    }
+    .bullet { position: absolute; left: 6px; }
   }
 
 
