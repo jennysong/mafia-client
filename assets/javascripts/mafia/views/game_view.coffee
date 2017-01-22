@@ -39,7 +39,11 @@ class Mafia.GameView extends Mafia.View
 
     @app.socket.on 'general vote update', (current_users) =>
       @users.updatesCollectionByIndex current_users
-      @app.trigger 'general vote updated'
+      @app.trigger 'vote updated'
+
+    @app.socket.on 'special vote update', (current_users) =>
+      @users.updatesCollectionByIndex current_users
+      @app.trigger 'vote updated'
 
   events:
     'click .change-section': 'change_section'

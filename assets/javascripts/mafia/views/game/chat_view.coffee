@@ -10,8 +10,8 @@ class Mafia.Game.ChatView extends Mafia.View
       </form>
     </div>
   '''
-  events: 
-    'submit': 'send' 
+  events:
+    'submit': 'send'
 
   initialize: ->
     @_render()

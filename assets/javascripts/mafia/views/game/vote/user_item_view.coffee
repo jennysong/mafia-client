@@ -27,7 +27,7 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
     @_render()
     @_position()
 
-    @app.on 'general vote updated', =>
+    @app.on 'vote updated', =>
       @_refresh()
     @_togglePlaceHolder()
 
@@ -62,4 +62,5 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
         after_select: (model) =>
           @app.current_user.set "#{@type}Vote", model.id
           @app.socket.emit("#{@type} vote", model.id)
+          @_refresh()
           @vote_player_dialog.close()
