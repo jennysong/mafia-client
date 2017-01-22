@@ -28,12 +28,13 @@ class Mafia.WaitingView extends Mafia.View
       @users.updatesCollectionByIndex current_users
       if @users.isReady()
         @status_indicator.start_counting()
+        @app.socket.on 'game start', (game_data) =>
+          @app.trigger 'game started', game_data
       else
         @status_indicator.stop_counting()
+        @app.socket.off 'game start'
 
     @_mark_as_waiting()
-
-    @_render_game_view()
 
   events:
     'click .ready-button': 'toggle_ready'

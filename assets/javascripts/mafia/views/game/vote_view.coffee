@@ -10,7 +10,7 @@ class Mafia.Game.VoteView extends Mafia.View
     @_addFakeUsers()
     @_render()
     @_renderCurrentUser()
-    # @_renderPeerUsers()
+    @_renderPeerUsers()
     @_position()
 
   _render: ->

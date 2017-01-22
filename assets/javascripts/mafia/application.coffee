@@ -7,6 +7,7 @@
 
 class Mafia.AppStarter
   constructor: ->
+    _(this).extend Backbone.Events
     @socket = io.connect 'http://localhost:3000'
     @view = new Mafia.ApplicationView app: this
 
@@ -25,3 +26,6 @@ class Mafia.AppStarter
         new Mafia.LoginView app: this, parent: this
 
 
+    @on 'game started', (game_data) =>
+      users = new Mafia.Collections.Users
+      new Mafia.GameView app: this, model: @current_user, collection:  users
