@@ -3,7 +3,8 @@ class Mafia.Dialogs.GameResultDialogView extends Mafia.Dialogs.DialogView
   className: ''
   template: _.template '''
     <div class="text">
-      You're a <span class="role"><%- role %></span>
+      <%- userName %> is dead.
+      <%- userName %> is a <span class="role"><%- role %>.</span>
     </div>
   '''
 
@@ -13,7 +14,7 @@ class Mafia.Dialogs.GameResultDialogView extends Mafia.Dialogs.DialogView
 
     @_timeout = setTimeout =>
       @close()
-    , 10000
+    , 4000
 
   events:
     'click': "close"
