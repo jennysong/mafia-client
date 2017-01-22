@@ -41,4 +41,4 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
           #socket!!!
           # @vote_player_dialog.close()
           # console.log @app.current_user
-          @app.socket.emit('general vote', model.id)
+          @app.socket.emit("#{@type} vote", model.id)
