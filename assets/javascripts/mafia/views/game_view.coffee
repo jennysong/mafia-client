@@ -99,8 +99,14 @@ class Mafia.GameView extends Mafia.View
 
 
   _initialize_application_trigers: ->
-    @app.on 'next-scene-started', =>
-      @_refresh_frame scene: @app.scene
+    @app.on 'show-vote-result', (deadUser)=>
+      if deadUser
+        new Mafia.Dialogs.GameResultDialogView
+          app: this, model: deadUser
+          after_show: =>
+            @_refresh_frame scene: @app.scene
+      else
+        @_refresh_frame scene: @app.scene
       #show result dialog
 
   remove: ->

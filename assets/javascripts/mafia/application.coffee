@@ -40,4 +40,7 @@ class Mafia.AppStarter
     @on 'vote-result-received', (game_data) =>
       @scene = game_data.scene
       @users.check_and_reset_votes() if _(@scene).isOdd()
-      @trigger 'next-scene-started'
+      deadUser = if game_data.deadUserId then @users.get(game_data.deadUserId) else null
+      @trigger 'show-vote-result', deadUser
+      #      @trigger 'next-scene-started'
+
