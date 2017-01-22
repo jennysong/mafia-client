@@ -4,7 +4,8 @@ class Mafia.Game.ChatView extends Mafia.View
     <div class="message-list"></div>
     <div class="message-actions">
       <form>
-        <input name="chatInput" autocomplete="off" />
+        <div class="bullet"><span class="entypo comment"></span></div>
+        <input type='text' name="chatInput" autocomplete="off" />
         <input type='submit' value='Send' />
       </form>
     </div>
@@ -17,7 +18,9 @@ class Mafia.Game.ChatView extends Mafia.View
     @_render_messages()
     @_position()
 
-    @listenTo @messages, 'add', @_render_message
+    @listenTo @messages, 'add', (message) =>
+      new_message_view = @_render_message message
+      @_scroll_to new_message_view
 
   events:
     'submit': 'send'
@@ -25,8 +28,12 @@ class Mafia.Game.ChatView extends Mafia.View
 
   send: (e) ->
     e.preventDefault()
-    @app.socket.emit "new message", @$("[name=chatInput]").val()
-    @$("[name=chatInput]").val('')
+    if message = @$("[name=chatInput]").val()
+      @app.socket.emit "new message", @$("[name=chatInput]").val()
+      @$("[name=chatInput]").val('')
+
+  _scroll_to: (message_item_view) ->
+    @$message_list.animate scrollTop: message_item_view.$el.offset().top + @$message_list.scrollTop()
 
 
   _render: ->
@@ -44,5 +51,12 @@ class Mafia.Game.ChatView extends Mafia.View
       app: @app, parent: this, model: message,
       $wrap: @$message_list
 
+
   _position: ->
     @parent.$section_wrap.append @$el
+
+
+
+
+
+

@@ -33,13 +33,13 @@ class Mafia.GameView extends Mafia.View
     @messages = new Backbone.Collection
 
     @_render()
-    @_position()
-    @_refresh_frame scene: @app.scene
-    @_refresh_section 'chat'
+  @app.socket.on "update message", (message_attrs) =>
+      message = new @messages.model message_attrs
+      message.user = @app.users.get message_attrs.userId
+      @messages.add message
 
     @_initialize_sockets()
     @_initialize_application_trigers()
-
 
   events:
     'click .change-section': 'change_section'
@@ -87,8 +87,9 @@ class Mafia.GameView extends Mafia.View
       @app.trigger 'vote-result-received', game_data
 
     @app.socket.on "update message", (message_attrs) =>
-      console.log message_attrs
-      @messages.add message_attrs
+      message = new @messages.model message_attrs
+      message.user = @app.users.get message_attrs.userId
+      @messages.add message
 
 
   _initialize_application_trigers: ->
