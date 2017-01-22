@@ -9,7 +9,7 @@ class Mafia.GameView extends Mafia.View
         <a class="change-section section-btn" data-section="role">Role</a>
       </div>
     </div>
-    <div class="notification-wrap"></div>
+    <div class="game-view-notification"></div>
     <div class="game-view-body"></div>
   '''
 
@@ -48,6 +48,7 @@ class Mafia.GameView extends Mafia.View
     @$section_wrap = @$(".game-view-body")
     @$header_title_wrap = @$(".header-title-wrap")
     @$notifiation_wrap = @$(".notification-wrap")
+    @$notification_wrap = @$(".game-view-notification")
 
   change_section: (e)->
     $btn = $(e.currentTarget)
@@ -75,13 +76,13 @@ class Mafia.GameView extends Mafia.View
     @app.socket.on 'general vote update', (current_users) =>
       @users.updatesCollectionByIndex current_users
       @app.trigger 'vote-updated'
+      @_hide_notification()
 
     @app.socket.on 'special vote update', (current_users) =>
       @users.updatesCollectionByIndex current_users
       @app.trigger 'vote-updated'
 
     @app.socket.on 'vote result', (game_data) =>
-      console.log game_data
       @users.updatesCollectionByIndex game_data.users
       @app.trigger 'vote-result-received', game_data
 
@@ -89,6 +90,12 @@ class Mafia.GameView extends Mafia.View
       message = new @messages.model message_attrs
       message.user = @app.users.get message_attrs.userId
       @messages.add message
+
+    @app.socket.on 'start general vote countdown', =>
+      countdown_view = new Mafia.Game.CountdownView
+        message: 'Countdown #number!', time: 10
+        after_stop: => @_hide_notification()
+      @_show_notification countdown_view
 
 
   _initialize_application_trigers: ->
@@ -102,3 +109,11 @@ class Mafia.GameView extends Mafia.View
     @app.socket.off 'vote result'
     @app.socket.off 'update message'
     super
+
+  _hide_notification: ->
+    @$el.removeClass 'notification-show'
+
+  _show_notification: (view) ->
+    @$notification_wrap.append view.el if view instanceof Backbone.View
+    @$el.addClass 'notification-show'
+
