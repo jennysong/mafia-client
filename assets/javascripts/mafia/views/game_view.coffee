@@ -33,6 +33,9 @@ class Mafia.GameView extends Mafia.View
     @messages = new Backbone.Collection
 
     @_render()
+    @_position()
+    @_refresh_frame scene: @app.scene
+    @_refresh_section 'chat'
 
     @_initialize_sockets()
     @_initialize_application_trigers()
