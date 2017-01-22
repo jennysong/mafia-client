@@ -1,0 +1,1 @@
+web: bundle exec savanna start 5000
