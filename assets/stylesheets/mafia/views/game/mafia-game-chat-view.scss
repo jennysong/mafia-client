@@ -69,6 +69,13 @@
         @include border-radius(17px 0 17px 17px);
       }
     }
+    &.from-graveyard {
+      .avatar { @include filter(grayscale(100%)); }
+      .item-name:after {
+        content: 'Ghost'; color: lighten($important-color, 25%);
+        font-size: 11px; text-transform: uppercase; margin-left: 5px;
+      }
+    }
   }
   .system.message-item {
     .item-label {
@@ -78,6 +85,10 @@
       background: rgba(black, 0.4); color: rgba(white, 0.8); line-height: 120%;
     }
     .bullet { position: absolute; left: 6px; }
+  }
+
+  &.user-alive {
+    .from-graveyard { display: none; }
   }
 
 

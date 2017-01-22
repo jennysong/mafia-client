@@ -13,7 +13,9 @@ class Mafia.Game.ChatView extends Mafia.View
   '''
 
   initialize: ->
+    @user     = @parent.model
     @messages = @parent.messages
+
     @_render()
     @_render_messages()
     @_position()
@@ -40,6 +42,7 @@ class Mafia.Game.ChatView extends Mafia.View
     @$el.html @template()
     @$input_field  = @$("[name=chatInput]")
     @$message_list = @$(".message-list")
+    @$el.addClass if @user.get('alive') then 'user-alive' else 'user-died'
 
 
   _render_messages: ->
