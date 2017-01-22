@@ -29,6 +29,7 @@ class Mafia.WaitingView extends Mafia.View
       if @users.isReady()
         @status_indicator.start_counting()
         @app.socket.on 'game start', (game_data) =>
+          @app.socket.off 'game start'
           @app.trigger 'game started', game_data
       else
         @status_indicator.stop_counting()

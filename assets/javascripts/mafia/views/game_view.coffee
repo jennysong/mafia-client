@@ -22,7 +22,7 @@ class Mafia.GameView extends Mafia.View
     @users = @collection
     @_render()
     @_position()
-    @_refresh_section 'role'
+    @_refresh_section 'chat'
 
   events:
     'click .change-section': 'change_section'
