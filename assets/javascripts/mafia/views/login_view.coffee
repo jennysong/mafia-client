@@ -27,11 +27,21 @@ class Mafia.LoginView extends Mafia.View
   '''
 
   initialize: ->
+    @can_login = true
     @user = new Mafia.Models.User
     @user.setRandomAvatar()
     @_render()
     @_render_avatar()
     @_position()
+
+    @app.socket.on 'user joined', =>
+      @_render_waiting_view()
+
+    @app.socket.on 'game already started', =>
+      new Mafia.Dialogs.AlertView
+        title: "Alert"
+        message: "Game already started"
+      @can_login = true
 
   events:
     'submit': 'login'
@@ -43,14 +53,14 @@ class Mafia.LoginView extends Mafia.View
     @_render_avatar()
 
   login: (e) ->
-    e.preventDefault()
-    oUser = @$form.serializeObject()
-    @user.set oUser
-    @app.socket.emit('user join', @user.toJSON());
-    localStorage.setItem("roomId", oUser.roomId);
-    @app.current_user = @user
-
-    @_render_waiting_view()
+    if @can_login
+      @can_login = false
+      e.preventDefault()
+      oUser = @$form.serializeObject()
+      @user.set oUser
+      @app.socket.emit('user join', @user.toJSON());
+      localStorage.setItem("roomId", oUser.roomId);
+      @app.current_user = @user
 
   _render_waiting_view: ->
     new Mafia.WaitingView app: @app, parent: this, model: @user
@@ -65,3 +75,8 @@ class Mafia.LoginView extends Mafia.View
 
   _position: ->
     @app.view.append_view this
+
+  remove: ->
+    @app.socket.off 'user joined'
+    @app.socket.off 'game already started'
+    super
