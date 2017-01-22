@@ -15,7 +15,6 @@ class Mafia.ApplicationView extends Mafia.View
     @_position()
 
   append_view: (view) ->
-    console.log @_current_view
     @_current_view.remove() if @_current_view
     @_current_view = view
     @$body.append view.el
