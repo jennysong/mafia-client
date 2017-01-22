@@ -8,6 +8,7 @@ class Mafia.Models.User extends Backbone.Model
     userStatus: false
     role: null
     id: null
+    alive: true
     generalVote: null
     specialVote: null
 

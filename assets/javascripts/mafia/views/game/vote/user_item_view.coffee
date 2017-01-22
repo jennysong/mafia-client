@@ -33,7 +33,7 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
     @$wrap.append @$el
 
   vote: =>
-    if @votable
+    if @votable and @model.get("alive")
       @vote_player_dialog = @new Mafia.Dialogs.VotePlayerDialogView,
         app: @app, parent: this, current_user: @app.current_user, users: @collection,
         after_select: (model) =>

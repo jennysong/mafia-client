@@ -18,7 +18,7 @@ class Mafia.Dialogs.VotePlayerDialogView extends Mafia.Dialogs.DialogView
 
   _render_users: ->
     @users.each (user) =>
-      unless user.id == @current_user.id
+      if (user.id != @current_user.id) and user.get("alive")
         @new Mafia.Dialogs.VotePlayerDialog.UserItemView,
           app: @app, parent: this, model: user
           $wrap: @$user_list, after_select: @after_select
