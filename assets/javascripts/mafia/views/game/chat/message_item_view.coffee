@@ -28,7 +28,9 @@ class Mafia.Game.Chat.MessageItemView extends Mafia.View
 
   _render: ->
     data = @model.toJSON()
-    data.user = @model.user.toJSON() if @model.get('type') is 'user'
+    if @model.get('type') is 'user'
+      data.user = @model.user.toJSON()
+      @$el.addClass if @model.user.get('alive') then 'from-village' else 'from-graveyard'
     @$el.html @templates[@model.get('type')] data
 
   _position: ->
