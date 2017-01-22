@@ -3,8 +3,8 @@ class Mafia.Game.RoleView extends Mafia.View
   class: 'role-view'
 
   template: _.template '''
-    <div class="title">You are a <%- role %>!</div>
-    <% if(role != "villager") { %>
+    <div class="title">You are a <%- user.role %>!</div>
+    <% if(user.role != "villager" && scene % 2 == 0)  { %>
       <ul class="current-user-wrap"></ul>
       <ul class="peer-users-wrap"></ul>
     <% } %>
@@ -21,7 +21,7 @@ class Mafia.Game.RoleView extends Mafia.View
 
 
   _render: ->
-    @$el.html @template @model.toJSON()
+    @$el.html @template {user: @model.toJSON(), scene: @app.scene}
     @$currentUserWrap = @$(".current-user-wrap")
     @$peerUsersWrap = @$(".peer-users-wrap")
 
