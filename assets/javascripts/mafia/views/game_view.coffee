@@ -116,7 +116,7 @@ class Mafia.GameView extends Mafia.View
           if (@app.scene is @MAFIA_WIN_SCENE_NUMBER) or (@app.scene is @VILLAGER_WIN_SCENE_NUMBER)
             # new Mafia.GameOverView
             #   app: @app, parent: this, model: @app.current_user
-            @app.scene "1554"
+            @app.scene = "1554"
             @messages.add_system_message @model.get_result(@app.scene)
             @finished = true
             @_refresh_section 'chat'
