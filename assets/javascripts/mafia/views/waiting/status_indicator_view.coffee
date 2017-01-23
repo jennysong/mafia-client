@@ -18,7 +18,7 @@ class Mafia.Waiting.StatusIndicatorView extends Mafia.View
   start_counting: ->
     clearInterval @_counter
     @counting = true
-    @_count = 10
+    @_count = 5
     @$el.addClass('counting').removeClass('waiting')
 
     @_counter = setInterval =>
