@@ -99,12 +99,12 @@ class Mafia.GameView extends Mafia.View
 
     @app.socket.on 'start general vote countdown', =>
       countdown_view = new Mafia.Game.CountdownView
-        message: 'Countdown #number!', time: 10
+        message: 'Countdown #number!', time: 5
       @_show_notification countdown_view
 
     @app.socket.on 'start special vote countdown', =>
       countdown_view = new Mafia.Game.CountdownView
-        message: 'Countdown #number!', time: 10
+        message: 'Countdown #number!', time: 5
       @_show_notification countdown_view
 
   _initialize_application_trigers: ->

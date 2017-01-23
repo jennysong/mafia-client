@@ -24,6 +24,12 @@ class Mafia.Game.ChatView extends Mafia.View
       new_message_view = @_render_message message
       @_scroll_to new_message_view
 
+
+    last_message = @messages.last()
+    @_scroll_to last_message.view, no_animation: true if last_message
+
+
+
   events:
     'submit': 'send'
 
@@ -34,8 +40,16 @@ class Mafia.Game.ChatView extends Mafia.View
       @app.socket.emit "new message", @$input_field.val()
       @$input_field.val('')
 
-  _scroll_to: (message_item_view) ->
-    @$message_list.animate scrollTop: message_item_view.$el.offset().top + @$message_list.scrollTop()
+  _scroll_to: (message_item_view, options = {}) ->
+    return unless message_item_view
+    scroll_amount = @_get_scroll_amount message_item_view
+    unless options.no_animation
+      @$message_list.animate scrollTop: scroll_amount
+    else
+      @$message_list.scrollTop scroll_amount
+
+  _get_scroll_amount: (message_item_view) ->
+    message_item_view.$el.offset().top + @$message_list.scrollTop()
 
 
   _render: ->

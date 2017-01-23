@@ -20,6 +20,8 @@ class Mafia.Game.Chat.MessageItemView extends Mafia.View
   initialize: (options) ->
     {@$wrap} = options
 
+    @model.view = this
+
     @_render()
     @_position()
 

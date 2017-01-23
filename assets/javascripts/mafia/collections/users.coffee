@@ -22,6 +22,7 @@ class Mafia.Collections.Users extends Backbone.Collection
 
   isReady: ->
     users_without_empty_slot = @select (user) -> user.id
+    return false if users_without_empty_slot.length < 3
     _(users_without_empty_slot).every (user) -> user.get('userStatus')
 
   check_and_reset_votes: ->
