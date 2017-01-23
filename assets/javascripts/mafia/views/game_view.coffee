@@ -120,7 +120,7 @@ class Mafia.GameView extends Mafia.View
           app: @app, parent: this, model: deadUser
           after_show: =>
             @_refresh_frame scene: @app.scene
-            @messages.add_system_message "Youn are required to vote. Go role tab and vote" if @model.get("alive") and (@model.get("role") isnt "villager") and @model.scene % 2 == 0
+            @messages.add_system_message "Youn are required to vote. Go role tab and vote" if @model.get("alive") and (@model.get("role") isnt "villager") and @app.scene % 2 == 0
             @_refresh_section 'chat'
 
 
