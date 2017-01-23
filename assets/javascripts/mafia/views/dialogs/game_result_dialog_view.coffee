@@ -10,7 +10,7 @@ class Mafia.Dialogs.GameResultDialogView extends Mafia.Dialogs.DialogView
   none_dead_template: _.template '''
     <div class="text">
       Goob Job, Doctor.
-      None is <span class="role">dead.</span>
+      <span class="role">None is dead.</span>
     </div>
   '''
 
@@ -28,8 +28,10 @@ class Mafia.Dialogs.GameResultDialogView extends Mafia.Dialogs.DialogView
 
   _render: ->
     if @model
+      @parent.messages.add_system_message "#{@model.get('userName')} is dead. #{@model.get('userName')} is a #{@model.get('role')}."
       @$el.html @template @model.toJSON()
     else
+      @parent.messages.add_system_message "Goob Job, Doctor. None is dead."
       @$el.html @none_dead_template()
 
     @$role = @$(".role")

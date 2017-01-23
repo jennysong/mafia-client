@@ -109,19 +109,20 @@ class Mafia.GameView extends Mafia.View
 
   _initialize_application_trigers: ->
     @app.on 'show-vote-result', (deadUser)=>
-      if (@app.scene is @MAFIA_WIN_SCENE_NUMBER) or (@app.scene is @VILLAGER_WIN_SCENE_NUMBER)
-        # new Mafia.GameOverView
-        #   app: @app, parent: this, model: @app.current_user
-        @messages.add_system_message @model.get_result(@app.scene)
-        @finished = true
-        @_refresh_section 'chat'
-      else
-        new Mafia.Dialogs.GameResultDialogView
-          app: @app, parent: this, model: deadUser
-          after_show: =>
-            @_refresh_frame scene: @app.scene
-            @messages.add_system_message "Youn are required to vote. Go role tab and vote" if @model.get("alive") and (@model.get("role") isnt "villager") and @app.scene % 2 == 0
+
+      new Mafia.Dialogs.GameResultDialogView
+        app: @app, parent: this, model: deadUser
+        after_show: =>
+          if (@app.scene is @MAFIA_WIN_SCENE_NUMBER) or (@app.scene is @VILLAGER_WIN_SCENE_NUMBER)
+            # new Mafia.GameOverView
+            #   app: @app, parent: this, model: @app.current_user
+            @app.scene "1554"
+            @messages.add_system_message @model.get_result(@app.scene)
+            @finished = true
             @_refresh_section 'chat'
+          @_refresh_frame scene: @app.scene
+          @messages.add_system_message "You are required to vote. Go role tab and vote" if @model.get("alive") and (@model.get("role") isnt "villager") and @app.scene % 2 == 0
+          @_refresh_section 'chat'
 
 
   remove: ->
