@@ -45,6 +45,8 @@ class Mafia.GameView extends Mafia.View
     @_initialize_sockets()
     @_initialize_application_trigers()
 
+    @_add_listenTo_to_models()
+
   events:
     'click .change-section': 'change_section'
 
@@ -149,4 +151,15 @@ class Mafia.GameView extends Mafia.View
   _get_role_counts_add_as_system_messages: ->
     _(@users.get_role_counts()).each (value, key) =>
       @messages.add_system_message "#{key}: #{value} of people" if value
+
+  _add_listenTo_to_models: ->
+    @users.each (user) =>
+      @listenTo user, 'change:generalVote', @_voted
+
+  _voted: (user) ->
+    if _(@app.scene).isOdd()
+      if voted_user_id = user.get("generalVote")
+        if voted_user_id
+          voted_user = @users.get(voted_user_id)
+          @messages.add_system_message "#{user.get("userName")} voted to #{voted_user.get("userName")}"
 

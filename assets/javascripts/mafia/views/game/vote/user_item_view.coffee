@@ -39,6 +39,7 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
   events:
     'click .vote': 'vote'
 
+
   _render: ->
     data = {user: @model.toJSON(), votedUser: null}
     @voted_user_id = @model.get  "#{@type}Vote"
