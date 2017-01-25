@@ -35,6 +35,7 @@ class Mafia.GameView extends Mafia.View
     @app.finished = @finished
     @users    = @collection
     @messages = new Mafia.Collections.Messages
+    @_get_role_counts_add_as_system_messages()
 
     @_render()
     @_position()
@@ -141,4 +142,10 @@ class Mafia.GameView extends Mafia.View
   _show_notification: (view) ->
     @$notification_wrap.html view.el if view instanceof Backbone.View
     @$el.addClass 'notification-show'
+
+  _get_role_counts_add_as_system_messages: ->
+    console.log @users
+    console.log @users.get_role_counts()
+    _(@users.get_role_counts()).each (value, key) =>
+      @messages.add_system_message "#{key}: #{value} of people" if value
 

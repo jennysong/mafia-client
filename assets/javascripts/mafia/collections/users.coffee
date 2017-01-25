@@ -31,3 +31,23 @@ class Mafia.Collections.Users extends Backbone.Collection
         "generalVote": null
         "specialVote": null
       }
+
+  get_role_counts: ->
+    output = {
+      villagers: 0,
+      mafias: 0,
+      doctor: 0,
+      police: 0
+    }
+    @each (user) =>
+      switch user.get("role")
+        when "villager"
+          output.villagers += 1
+        when "mafia"
+          output.mafias += 1
+        when "doctor"
+          output.doctor += 1
+        when "police"
+          output.police += 1
+    output
+
