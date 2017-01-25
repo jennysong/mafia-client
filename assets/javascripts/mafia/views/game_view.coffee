@@ -126,7 +126,10 @@ class Mafia.GameView extends Mafia.View
           else
             @_refresh_frame scene: @app.scene
             @messages.add_system_message "You are required to vote. Go role tab and vote" if @model.get("alive") and (@model.get("role") isnt "villager") and @app.scene % 2 == 0
-            @_refresh_section 'chat'
+            if _(@app.scene).isOdd() or (@model.get("role") is "villager")
+              @_refresh_section 'chat'
+            else
+              @_refresh_section 'role'
 
 
   remove: ->
@@ -144,8 +147,6 @@ class Mafia.GameView extends Mafia.View
     @$el.addClass 'notification-show'
 
   _get_role_counts_add_as_system_messages: ->
-    console.log @users
-    console.log @users.get_role_counts()
     _(@users.get_role_counts()).each (value, key) =>
       @messages.add_system_message "#{key}: #{value} of people" if value
 
