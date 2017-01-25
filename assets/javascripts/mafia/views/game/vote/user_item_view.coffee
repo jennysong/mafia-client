@@ -74,6 +74,7 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
           @$el.addClass 'voted'
 
   _check_votable: ->
+    return false if @app.finished
     output = false
     if @votable and @model.get("alive")
       isOdd = _(@app.scene).isOdd()

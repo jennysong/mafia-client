@@ -32,6 +32,7 @@ class Mafia.GameView extends Mafia.View
     role: 'RoleView'
 
   initialize: (options = {scene: 1}) ->
+    @app.finished = @finished
     @users    = @collection
     @messages = new Mafia.Collections.Messages
 
@@ -116,13 +117,15 @@ class Mafia.GameView extends Mafia.View
           if (@app.scene is @MAFIA_WIN_SCENE_NUMBER) or (@app.scene is @VILLAGER_WIN_SCENE_NUMBER)
             # new Mafia.GameOverView
             #   app: @app, parent: this, model: @app.current_user
-            @app.scene = "1554"
+
             @messages.add_system_message @model.get_result(@app.scene)
-            @finished = true
+            @app.finished = true
+            @app.scene = "1554"
             @_refresh_section 'chat'
-          @_refresh_frame scene: @app.scene
-          @messages.add_system_message "You are required to vote. Go role tab and vote" if @model.get("alive") and (@model.get("role") isnt "villager") and @app.scene % 2 == 0
-          @_refresh_section 'chat'
+          else
+            @_refresh_frame scene: @app.scene
+            @messages.add_system_message "You are required to vote. Go role tab and vote" if @model.get("alive") and (@model.get("role") isnt "villager") and @app.scene % 2 == 0
+            @_refresh_section 'chat'
 
 
   remove: ->
