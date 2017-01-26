@@ -142,6 +142,7 @@ class Mafia.GameView extends Mafia.View
             @finished = true
             @app.scene = "1554"
             @_refresh_status_class()
+            @users.reviveAll()
             @_refresh_section 'chat'
           else
             @_refresh_frame scene: @app.scene
@@ -175,7 +176,7 @@ class Mafia.GameView extends Mafia.View
 
   _get_role_counts_add_as_system_messages: ->
     _(@users.get_role_counts()).each (value, key) =>
-      @messages.add_system_message "#{key}: #{value} of people" if value
+      @messages.add_system_message "#{key}: #{value}" if value
 
   _add_listenTo_to_models: ->
     @users.each (user) =>
@@ -186,5 +187,5 @@ class Mafia.GameView extends Mafia.View
       if voted_user_id = user.get("generalVote")
         if voted_user_id
           voted_user = @users.get(voted_user_id)
-          @messages.add_system_message "#{user.get("userName")} voted to #{voted_user.get("userName")}"
+          @messages.add_system_message "#{user.get("userName")} voted #{voted_user.get("userName")}"
 

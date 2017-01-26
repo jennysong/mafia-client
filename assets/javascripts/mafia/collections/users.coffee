@@ -25,6 +25,10 @@ class Mafia.Collections.Users extends Backbone.Collection
     return false if users_without_empty_slot.length < 3
     _(users_without_empty_slot).every (user) -> user.get('userStatus')
 
+
+  reviveAll: ->
+    @each (user) -> user.set 'alive', true
+
   check_and_reset_votes: ->
     @each (user) =>
       user.set {
