@@ -32,9 +32,9 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
     @_render()
     @_position()
 
-    @app.on 'vote-updated', =>
-      @_refresh()
     @_togglePlaceHolder()
+
+    @listenTo @model, 'vote-updated', @_refresh
 
   events:
     'click .vote': 'vote'
@@ -44,7 +44,7 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
     data = {user: @model.toJSON(), votedUser: null}
     @voted_user_id = @model.get  "#{@type}Vote"
     if @voted_user_id
-      @voted_user = @app.users.get @voted_user_id
+      @voted_user = @parent.parent.users.get @voted_user_id
       data["votedUser"] = @voted_user.toJSON() if @voted_user
     @$el.html @template data
     @$el.addClass if @votable then 'my-vote' else 'other-vote'
@@ -75,7 +75,7 @@ class Mafia.Game.Vote.UserItemView extends Mafia.View
           @$el.addClass 'voted'
 
   _check_votable: ->
-    return false if @app.finished
+    return false if @parent.parent.finished
     output = false
     if @votable and @model.get("alive")
       isOdd = _(@app.scene).isOdd()

@@ -2,11 +2,18 @@ class Mafia.GameView extends Mafia.View
   id: 'mafia-game-view'
   template: _.template '''
     <div class="game-view-header">
-      <div class="header-title-wrap"></div>
+      <div class="visible-playing">
+        <div class="header-title-wrap"></div>
+      </div>
       <div class="section-btns">
-        <a class="change-section section-btn" data-section="vote">Vote</a>
-        <a class="change-section section-btn" data-section="chat">Chat</a>
-        <a class="change-section section-btn" data-section="role">Role</a>
+        <div class="visible-playing">
+          <a class="change-section section-btn" data-section="vote">Vote</a>
+          <a class="change-section section-btn" data-section="chat">Chat</a>
+          <a class="change-section section-btn" data-section="role">Role</a>
+        </div>
+        <div class="visible-finished">
+          <a class="section-btn leave-room">Leave Room</a>
+        </div>
       </div>
     </div>
     <div class="game-view-notification"></div>
@@ -32,7 +39,6 @@ class Mafia.GameView extends Mafia.View
     role: 'RoleView'
 
   initialize: (options = {scene: 1}) ->
-    @app.finished = @finished
     @users    = @collection
     @messages = new Mafia.Collections.Messages
     @_get_role_counts_add_as_system_messages()
@@ -46,9 +52,22 @@ class Mafia.GameView extends Mafia.View
     @_initialize_application_trigers()
 
     @_add_listenTo_to_models()
+    switch @app.scene
+      when @MAFIA_WIN_SCENE_NUMBER, @VILLAGER_WIN_SCENE_NUMBER
+        @finished = true
+
+    @_refresh_status_class()
 
   events:
     'click .change-section': 'change_section'
+    'click .leave-room': 'leave_room'
+
+  change_section: (e)->
+    $btn = $(e.currentTarget)
+    @_refresh_section $btn.data 'section'
+
+  leave_room: (e) ->
+    @app.socket.emit('leave current room')
 
   _render: ->
     @$el.html @template()
@@ -56,10 +75,6 @@ class Mafia.GameView extends Mafia.View
     @$header_title_wrap = @$(".header-title-wrap")
     @$notifiation_wrap = @$(".notification-wrap")
     @$notification_wrap = @$(".game-view-notification")
-
-  change_section: (e)->
-    $btn = $(e.currentTarget)
-    @_refresh_section $btn.data 'section'
 
   _refresh_section: (section)->
     @current_section_tab.removeClass 'selected' if @current_section_tab
@@ -82,12 +97,12 @@ class Mafia.GameView extends Mafia.View
   _initialize_sockets: ->
     @app.socket.on 'general vote update', (current_users) =>
       @users.updatesCollectionByIndex current_users
-      @app.trigger 'vote-updated'
+      @users.each (user) -> user.trigger 'vote-updated'
       @_hide_notification()
 
     @app.socket.on 'special vote update', (current_users) =>
       @users.updatesCollectionByIndex current_users
-      @app.trigger 'vote-updated'
+      @users.each (user) -> user.trigger 'vote-updated'
 
     @app.socket.on 'vote result', (game_data) =>
       @_hide_notification()
@@ -95,10 +110,15 @@ class Mafia.GameView extends Mafia.View
       @messages.add_system_message game_data.policeMessage if game_data.policeMessage and (@model.get("role") is "police")
       @app.trigger 'vote-result-received', game_data
 
+      @app.scene = game_data.scene
+      # @users.check_and_reset_votes() if _(@scene).isOdd()
+      deadUser = if game_data.deadUserId then @users.get(game_data.deadUserId) else null
+      @trigger 'show-vote-result', deadUser
+
     @app.socket.on "update message", (message_attrs) =>
       message_attrs.type = 'user'
       message = new @messages.model message_attrs
-      message.user = @app.users.get message_attrs.userId
+      message.user = @users.get message_attrs.userId
       @messages.add message
 
     @app.socket.on 'start general vote countdown', =>
@@ -112,18 +132,16 @@ class Mafia.GameView extends Mafia.View
       @_show_notification countdown_view
 
   _initialize_application_trigers: ->
-    @app.on 'show-vote-result', (deadUser)=>
+    @on 'show-vote-result', (deadUser)=>
 
       new Mafia.Dialogs.GameResultDialogView
         app: @app, parent: this, model: deadUser
         after_show: =>
           if (@app.scene is @MAFIA_WIN_SCENE_NUMBER) or (@app.scene is @VILLAGER_WIN_SCENE_NUMBER)
-            # new Mafia.GameOverView
-            #   app: @app, parent: this, model: @app.current_user
-
             @messages.add_system_message @model.get_result(@app.scene)
-            @app.finished = true
+            @finished = true
             @app.scene = "1554"
+            @_refresh_status_class()
             @_refresh_section 'chat'
           else
             @_refresh_frame scene: @app.scene
@@ -132,6 +150,13 @@ class Mafia.GameView extends Mafia.View
               @_refresh_section 'chat'
             else
               @_refresh_section 'role'
+
+
+  _refresh_status_class: ->
+    if @finished
+      @$el.removeClass('playing').addClass 'finished'
+    else
+      @$el.removeClass('finished').addClass 'playing'
 
 
   remove: ->

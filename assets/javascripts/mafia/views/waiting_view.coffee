@@ -16,8 +16,8 @@ class Mafia.WaitingView extends Mafia.View
   current_status: 'waiting'
 
   initialize: (options = {}) ->
-    @app.users = new Mafia.Collections.Users
-    @app.users.addEmptySlots 12
+    @users = new Mafia.Collections.Users
+    @users.addEmptySlots 12
 
     @_render()
     @_render_status_indicator()
@@ -25,15 +25,11 @@ class Mafia.WaitingView extends Mafia.View
     @_position()
 
     @app.socket.on 'ready status', (current_users) =>
-      @app.users.updatesCollectionByIndex current_users
-      if @app.users.isReady()
+      @users.updatesCollectionByIndex current_users
+      if @users.isReady()
         @status_indicator.start_counting()
       else
         @status_indicator.stop_counting()
-
-    @app.socket.on 'game start', (game_data) =>
-      @app.socket.off 'game start'
-      @app.trigger 'game-started', game_data
 
     @_mark_as_waiting()
 
@@ -64,7 +60,7 @@ class Mafia.WaitingView extends Mafia.View
 
   _render_waiting_user_list: ->
     @$waiting_user_list.empty()
-    @app.users.each (user) =>
+    @users.each (user) =>
       @_render_user_item user
 
   _render_user_item: (user) ->
